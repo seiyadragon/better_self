@@ -1,4 +1,6 @@
 import { GetServerSideProps } from "next";
+import Footer from "../components/footer";
+import Logo from "../components/logo";
 import Navigation from "../components/navigation";
 import QuoteSection from "../components/quote_section";
 import {Quote} from "../components/quote_section";
@@ -34,10 +36,14 @@ type IndexProps = {
 
 const Index = ({quote}: IndexProps) => {
     return (
-        <main className="bg-gray-800 h-screen">
-            <Navigation />
-            <section className="mx-4 md:mx-12 lg:mx-24 text-center">
-                <QuoteSection quote={quote} />
+        <main className="bg-gray-800" style={{"backgroundImage": "url(/home_background.jpg)", "backgroundSize": "cover"}}>
+            <section className="backdrop-blur-sm">
+                <Navigation />
+                <section className="mx-4 md:mx-12 lg:mx-24 text-center">
+                    <Logo />
+                    <QuoteSection quote={quote} />
+                </section>
+                <Footer />
             </section>
         </main>
     )
