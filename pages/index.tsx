@@ -37,7 +37,7 @@ type IndexProps = {
 const Index = ({quote}: IndexProps) => {
     return (
         <main className="bg-gray-800" style={{"backgroundImage": "url(/home_background.jpg)", "backgroundSize": "cover"}}>
-            <section className="backdrop-blur-sm">
+            <section className="backdrop-blur-md">
                 <Navigation />
                 <section className="mx-4 md:mx-12 lg:mx-24 text-center">
                     <Logo />
