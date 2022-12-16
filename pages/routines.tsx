@@ -1,4 +1,5 @@
 import Footer from "../components/footer";
+import LoginManager from "../components/login_manager";
 import Logo from "../components/logo";
 import Navigation from "../components/navigation";
 

@@ -4,6 +4,7 @@ import Logo from "../components/logo";
 import Navigation from "../components/navigation";
 import QuoteSection from "../components/quote_section";
 import {Quote} from "../components/quote_section";
+import LoginManager from "../components/login_manager";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
