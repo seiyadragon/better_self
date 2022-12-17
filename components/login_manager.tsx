@@ -1,27 +1,12 @@
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
-import Footer from "./footer";
+import { useUser } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/router"
 
 const LoginManager = () => {
-    let user = useUser()
-    let supabaseClient = useSupabaseClient()
+    const user = useUser()
+    const router = useRouter()
 
     if (!user)
-        return (
-            <main className="h-screen absolute bg-gray-800 w-full">
-                <section className="my-32 px-4 md:px-12 lg:px-24">
-                    <Auth
-                        redirectTo="http://localhost:3000/"
-                        supabaseClient={supabaseClient}
-                        appearance={{ theme: ThemeSupa }}
-                        socialLayout="horizontal"
-                    />
-                </section>
-                <Footer />
-            </main>
-        )
-    
-    return (
-        <p>You are logged in!</p>
-    )
+        router.push("/login")
+
+    return <section />
 }; export default LoginManager

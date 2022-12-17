@@ -8,6 +8,7 @@ const BUTTON_CLASS: string = 'hover:scale-150 transition-transform mx-2 my-4'
 
 export const Navigation = () => {
     let user = useUser()
+    let date = new Date()
 
     return (
         <header className={HEADER_CLASS}>
@@ -15,7 +16,7 @@ export const Navigation = () => {
             <Link href="/" className={BUTTON_CLASS}>
                 <FaHome />
             </Link>
-            <Link href="/routines" className={BUTTON_CLASS}>
+            <Link href={"/routines?date=" + date.toDateString().replaceAll(" ", "_")} className={BUTTON_CLASS}>
                 <FaRedoAlt/>
             </Link>
             <section className='w-full flex justify-end'>
