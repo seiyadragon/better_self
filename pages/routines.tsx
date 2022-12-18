@@ -6,6 +6,7 @@ import TaskManager from "../components/task_manager";
 import Link from "next/link";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
+import LoginManager from "../components/login_manager";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const dateSplit = ctx.query.date !== undefined ? ctx.query.date.toString().split("_") : new Array<string>
@@ -18,15 +19,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         year: dateSplit[3],
     }
 
-    let supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL !== undefined ? process.env.NEXT_PUBLIC_SUPABASE_URL : ""
-    let supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY !== undefined ? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY : ""
-    
-    const supabase = createClient(supabaseUrl, supabaseKey)
-    const {data, error} = await supabase.from("UserRoutines").select()
-
     return {
         props: {
-            routineData: data,
             date: date,
             dateString: dateString
         }
@@ -61,10 +55,9 @@ const Routines = ({routineData, date, dateString}: RoutinesProps) => {
     nextDate.setDate(dateDate.getDate() + 1)
 
     const user = useUser()
-    const router = useRouter()
 
     if (!user)
-        router.push("/login")
+        return <LoginManager />
 
     return (
         <main className="bg-gray-800">
@@ -85,7 +78,7 @@ const Routines = ({routineData, date, dateString}: RoutinesProps) => {
                         {">"}
                     </Link>
                 </section>
-                <TaskManager date={dateString} routineData={routineData}/>
+                <TaskManager date={dateString}/>
             </section>
             <Footer />
         </main>

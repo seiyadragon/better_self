@@ -2,16 +2,15 @@ import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Footer from "../components/footer";
 import Navigation from "../components/navigation";
 import { useRouter } from "next/router";
+import LoginManager from "../components/login_manager";
 
 
 const Account = () => {
     let user = useUser()
     let supabaseClient = useSupabaseClient()
 
-    let router = useRouter()
-
     if (!user)
-        router.push("/login")
+        return <LoginManager/>
 
     return (
         <main className="bg-gray-800">
@@ -21,7 +20,7 @@ const Account = () => {
                <p className="py-2 text-left">ID: {user?.id}</p>
                <p className="py-2 text-left">Email: {user?.email}</p>
                <button 
-                    className="py-8 px-16 my-32 bg-gray-600 hover:bg-gray-400 w-1/4 self-center shadow-lg text-2xl text-orange-400" 
+                    className="py-8 px-16 my-32 bg-gray-700 hover:bg-gray-600 w-1/4 self-center shadow-lg text-2xl text-orange-400" 
                     onClick={async (MouseEvent) => supabaseClient.auth.signOut()}
                 >
                     Sign Out!

@@ -3,38 +3,30 @@ import { useState, ChangeEvent, useEffect } from 'react'
 
 type TaskManagerProps = {
     date: string,
-    routineData: [any]
 }
 
-const TaskManager = ({date, routineData}: TaskManagerProps) => {
+const TaskManager = ({date}: TaskManagerProps) => {
     const supabaseClient = useSupabaseClient()
     const user = useUser()
-
-    console.log(date)
-
-    let currentRoutine: any = null
-
-    routineData.map((data) => {
-        if (data.date === date) {
-            currentRoutine = data
-        }
-    })
-
-    const [textArea1, setTextArea1] = useState("")
-    const [textArea2, setTextArea2] = useState("")
-    const [textArea3, setTextArea3] = useState("")
-    const [textArea4, setTextArea4] = useState("")
-    const [textArea5, setTextArea5] = useState("")
+    const [data, setData] = useState(new Array<any>)
 
     useEffect(() => {
-        if (currentRoutine !== null) {
-            setTextArea1(currentRoutine.textBoxes[0])
-            setTextArea2(currentRoutine.textBoxes[1])
-            setTextArea3(currentRoutine.textBoxes[2])
-            setTextArea4(currentRoutine.textBoxes[3])
-            setTextArea5(currentRoutine.textBoxes[4])
+        async function loadData() {
+            const { data } = await supabaseClient.from('UserRoutines').select()
+            setData(data !== null ? data : new Array<any>)
         }
-    })
+
+        if (user)
+            loadData()
+    }, [user])
+
+    const [textArea1, setTextArea1] = useState(data.length > 0 ? data[0].textBoxes[0] : "")
+    const [textArea2, setTextArea2] = useState(data.length > 0 ? data[0].textBoxes[0] : "")
+    const [textArea3, setTextArea3] = useState(data.length > 0 ? data[0].textBoxes[0] : "")
+    const [textArea4, setTextArea4] = useState(data.length > 0 ? data[0].textBoxes[0] : "")
+    const [textArea5, setTextArea5] = useState(data.length > 0 ? data[0].textBoxes[0] : "")
+
+    console.log(data)
 
     return (
         <section className="flex flex-col py-8 text-white">
@@ -74,7 +66,7 @@ const TaskManager = ({date, routineData}: TaskManagerProps) => {
                 onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setTextArea5(event.currentTarget.value)}
             />
             <button 
-                className="py-8 px-16 my-16 bg-gray-600 hover:bg-gray-400 w-1/4 shadow-lg text-2xl text-orange-400 self-center" 
+                className="py-8 px-16 my-16 bg-gray-700 hover:bg-gray-600 w-1/4 shadow-lg text-2xl text-orange-400 self-center" 
                 onClick={async () => {
                     await supabaseClient.from("UserRoutines").insert({
                     userid: user !== null ? user.id : null,
