@@ -4,6 +4,7 @@ import Logo from "../components/logo";
 import Navigation from "../components/navigation";
 import QuoteSection from "../components/quote_section";
 import {Quote} from "../components/quote_section";
+import HeadManager from "../components/head_manager";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
@@ -37,6 +38,14 @@ type IndexProps = {
 const Index = ({quote}: IndexProps) => {
     return (
         <main className="bg-gray-800" style={{"backgroundImage": "url(/home_background.jpg)", "backgroundSize": "cover"}}>
+            <HeadManager 
+                title="The home of self improvement!"
+                keywords="Journal, Self improvement, Learn new skills, Better yourself, Improve, Self++, Achieve Success, Achieve your goals"
+                description={`
+                    Welcome to the home of self improvement. Keep track of your daily activities, goals and many more. Learn all sorts of new skills,
+                    with the courses we have avilable.
+                `}
+            />
             <section className="backdrop-blur-md">
                 <Navigation />
                 <section className="mx-4 md:mx-12 lg:mx-24 text-center">

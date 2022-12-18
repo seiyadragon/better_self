@@ -3,6 +3,7 @@ import Footer from "../components/footer";
 import Navigation from "../components/navigation";
 import { useRouter } from "next/router";
 import LoginManager from "../components/login_manager";
+import HeadManager from "../components/head_manager";
 
 
 const Account = () => {
@@ -14,6 +15,13 @@ const Account = () => {
 
     return (
         <main className="bg-gray-800">
+            <HeadManager 
+                title="Manage your account"
+                keywords="Journal, Self improvement, Learn new skills, Better yourself, Improve, Self++, Achieve Success, Achieve your goals"
+                description={`
+                    Manage your account here. View all your details, and update your information when necessary.
+                `}
+            />
             <Navigation />
             <section className="mx-4 md:mx-12 lg:mx-24 text-center text-2xl text-white">
                <p className="py-4 text-4xl">Welcome!</p>

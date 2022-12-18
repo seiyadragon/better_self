@@ -1,12 +1,11 @@
 import { GetServerSideProps } from "next";
 import Footer from "../components/footer";
 import Navigation from "../components/navigation";
-import { createClient } from "@supabase/supabase-js";
 import TaskManager from "../components/task_manager";
 import Link from "next/link";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/router";
+import { useUser } from "@supabase/auth-helpers-react";
 import LoginManager from "../components/login_manager";
+import HeadManager from "../components/head_manager";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const dateSplit = ctx.query.date !== undefined ? ctx.query.date.toString().split("_") : new Array<string>
@@ -61,6 +60,14 @@ const Routines = ({routineData, date, dateString}: RoutinesProps) => {
 
     return (
         <main className="bg-gray-800">
+            <HeadManager 
+                title="View your routines"
+                keywords="Journal, Self improvement, Learn new skills, Better yourself, Improve, Self++, Achieve Success, Achieve your goals"
+                description={`
+                    Write down and view all your daily activities. This will help you keep track of everything you do, 
+                    where you are failing and where yo ucould improve.
+                `}
+            />
             <Navigation />
             <section className="mx-4 md:mx-12 lg:mx-24">
                 <section className="flex flex-row justify-center gap-12 mt-8">

@@ -4,6 +4,7 @@ import Footer from "../components/footer";
 import Navigation from "../components/navigation";
 import { useRouter } from "next/router";
 import Logo from "../components/logo";
+import HeadManager from "../components/head_manager";
 
 const Login = () => {
     let supabaseClient = useSupabaseClient()
@@ -16,6 +17,13 @@ const Login = () => {
 
     return (
         <main className="h-screen absolute bg-gray-800 w-full">
+            <HeadManager 
+                title="Login"
+                keywords="Journal, Self improvement, Learn new skills, Better yourself, Improve, Self++, Achieve Success, Achieve your goals"
+                description={`
+                    Login or register a new account.
+                `}
+            />
             <Navigation />
             <section className="px-4 md:px-12 lg:px-24 text-white">
                 <Logo />

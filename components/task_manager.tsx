@@ -12,21 +12,42 @@ const TaskManager = ({date}: TaskManagerProps) => {
 
     useEffect(() => {
         async function loadData() {
-            const { data } = await supabaseClient.from('UserRoutines').select()
-            setData(data !== null ? data : new Array<any>)
+            const { data } = await supabaseClient.from('UserRoutines').select().eq("userid", user?.id)
+
+            let newData: Array<any> = []
+            if (data)
+                data.map((routine) => {
+                    if (routine.date === date)
+                        newData.push(routine)
+                })
+
+            setData(newData)
         }
 
-        if (user)
+        if (user) {
             loadData()
-    }, [user])
 
-    const [textArea1, setTextArea1] = useState(data.length > 0 ? data[0].textBoxes[0] : "")
-    const [textArea2, setTextArea2] = useState(data.length > 0 ? data[0].textBoxes[0] : "")
-    const [textArea3, setTextArea3] = useState(data.length > 0 ? data[0].textBoxes[0] : "")
-    const [textArea4, setTextArea4] = useState(data.length > 0 ? data[0].textBoxes[0] : "")
-    const [textArea5, setTextArea5] = useState(data.length > 0 ? data[0].textBoxes[0] : "")
+            if (data.length > 0) {
+                setTextArea1(data[0].textBoxes[0])
+                setTextArea2(data[0].textBoxes[1])
+                setTextArea3(data[0].textBoxes[2])
+                setTextArea4(data[0].textBoxes[3])
+                setTextArea5(data[0].textBoxes[4])
+            } else if (data.length <= 0) {
+                setTextArea1("")
+                setTextArea2("")
+                setTextArea3("")
+                setTextArea4("")
+                setTextArea5("")
+            }
+        }
+    }, [user, data])
 
-    console.log(data)
+    const [textArea1, setTextArea1] = useState("")
+    const [textArea2, setTextArea2] = useState("")
+    const [textArea3, setTextArea3] = useState("")
+    const [textArea4, setTextArea4] = useState("")
+    const [textArea5, setTextArea5] = useState("")
 
     return (
         <section className="flex flex-col py-8 text-white">
@@ -35,35 +56,45 @@ const TaskManager = ({date}: TaskManagerProps) => {
                 placeholder="Use this box to write about yesterday, your dreams, goals, plans for the day, whatever you want. It's about you!"
                 rows={3}
                 value={textArea1}
-                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setTextArea1(event.currentTarget.value)}
+                onChange={async (event: ChangeEvent<HTMLTextAreaElement>) => {
+                    setTextArea1(event.currentTarget.value)
+                }}
             />
             <textarea 
                 className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg" 
                 placeholder="Use this box to write about your health, plan your meals, exercises you will do, etc..."
                 rows={3}
                 value={textArea2}
-                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setTextArea2(event.currentTarget.value)}
+                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                    setTextArea2(event.currentTarget.value)
+                }}
             />
             <textarea 
                 className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg" 
                 placeholder="Use this box to write about any goals you want to accomplish, be it short or long term, or even just an idea, just write it down."
                 rows={3}
                 value={textArea3}
-                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setTextArea3(event.currentTarget.value)}
+                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                    setTextArea3(event.currentTarget.value)
+                }}
             />
             <textarea 
                 className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg" 
                 placeholder="Use this box to write about any problems you are currently facing and how you will solve them. Don't just complain, but think."
                 rows={3}
                 value={textArea4}
-                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setTextArea4(event.currentTarget.value)}
+                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                    setTextArea4(event.currentTarget.value)
+                }}
             />
             <textarea 
                 className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg" 
                 placeholder="Use this box to write about your accomplishments, things you're happy about. Forget being humble for your efforts must be celebrated."
                 rows={3}
                 value={textArea5}
-                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setTextArea5(event.currentTarget.value)}
+                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                    setTextArea5(event.currentTarget.value)
+                }}
             />
             <button 
                 className="py-8 px-16 my-16 bg-gray-700 hover:bg-gray-600 w-1/4 shadow-lg text-2xl text-orange-400 self-center" 
