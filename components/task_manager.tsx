@@ -24,8 +24,16 @@ const TaskManager = ({date}: TaskManagerProps) => {
             let newData: Array<any> = []
             if (data)
                 data.map((routine) => {
-                    if (routine.date === date)
+                    if (
+                        routine.date === date 
+                        && routine.textBoxes[0] !== "" 
+                        && routine.textBoxes[1] !== "" 
+                        && routine.textBoxes[2] !== ""
+                        && routine.textBoxes[3] !== ""
+                        && routine.textBoxes[4] !== ""
+                    ) {
                         newData.push(routine)
+                    }
                 })
 
             setData(newData)
@@ -40,52 +48,42 @@ const TaskManager = ({date}: TaskManagerProps) => {
         return (
             <section className="flex flex-col py-8 text-white">
                 <textarea 
-                    className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg" 
+                    className="bg-gray-700 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg" 
                     placeholder="Use this box to write about yesterday, your dreams, goals, plans for the day, whatever you want. It's about you!"
                     rows={3}
                     value={textArea1}
-                    onChange={async (event: ChangeEvent<HTMLTextAreaElement>) => {
-                        setTextArea1(event.currentTarget.value)
-                    }}
+                    onChange={async (event: ChangeEvent<HTMLTextAreaElement>) => setTextArea1(event.currentTarget.value)}
                 />
                 <textarea 
-                    className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg" 
+                    className="bg-gray-700 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg" 
                     placeholder="Use this box to write about your health, plan your meals, exercises you will do, etc..."
                     rows={3}
                     value={textArea2}
-                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-                        setTextArea2(event.currentTarget.value)
-                    }}
+                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setTextArea2(event.currentTarget.value)}
                 />
                 <textarea 
-                    className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg" 
+                    className="bg-gray-700 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg" 
                     placeholder="Use this box to write about any goals you want to accomplish, be it short or long term, or even just an idea, just write it down."
                     rows={3}
                     value={textArea3}
-                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-                        setTextArea3(event.currentTarget.value)
-                    }}
+                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setTextArea3(event.currentTarget.value)}
                 />
                 <textarea 
-                    className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg" 
+                    className="bg-gray-700 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg" 
                     placeholder="Use this box to write about any problems you are currently facing and how you will solve them. Don't just complain, but think."
                     rows={3}
                     value={textArea4}
-                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-                        setTextArea4(event.currentTarget.value)
-                    }}
+                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setTextArea4(event.currentTarget.value)}
                 />
                 <textarea 
-                    className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg" 
+                    className="bg-gray-700 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg" 
                     placeholder="Use this box to write about your accomplishments, things you're happy about. Forget being humble for your efforts must be celebrated."
                     rows={3}
                     value={textArea5}
-                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
-                        setTextArea5(event.currentTarget.value)
-                    }}
+                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setTextArea5(event.currentTarget.value)}
                 />
                 <button 
-                    className="py-8 px-16 my-16 bg-gray-700 hover:bg-gray-600 w-1/4 shadow-lg text-2xl text-orange-400 self-center" 
+                    className="py-8 px-16 my-16 bg-gray-700 hover:bg-gray-600 shadow-lg text-2xl text-orange-400 self-center" 
                     onClick={async () => {
                         setIsEdit(!isEdit)
                         const {error} = await supabaseClient.from("UserRoutines").delete().eq("date", date)
@@ -106,26 +104,27 @@ const TaskManager = ({date}: TaskManagerProps) => {
                 </button>
             </section>
         )
+
     else {
         return (
             <section className="flex flex-col py-8 text-white">
-                <p className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg min-h-24">
+                <p className="bg-gray-700 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg h-24 overflow-y-scroll">
                     {data.length > 0 && data[0].textBoxes[0]}
                     {data.length <= 0 && "Use this box to write about yesterday, your dreams, goals, plans for the day, whatever you want. It's about you!"}
                 </p>
-                <p className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg min-h-24">
+                <p className="bg-gray-700 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg h-24 overflow-y-scroll">
                     {data.length > 0 && data[0].textBoxes[1]}
                     {data.length <= 0 && "Use this box to write about your health, plan your meals, exercises you will do, etc..."}
                 </p>
-                <p className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg min-h-24">
+                <p className="bg-gray-700 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg h-24 overflow-y-scroll">
                     {data.length > 0 && data[0].textBoxes[2]}
                     {data.length <= 0 && "Use this box to write about any goals you want to accomplish, be it short or long term, or even just an idea, just write it down."}
                 </p>
-                <p className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg min-h-24">
+                <p className="bg-gray-700 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg h-24 overflow-y-scroll">
                     {data.length > 0 && data[0].textBoxes[3]}
                     {data.length <= 0 && "Use this box to write about any problems you are currently facing and how you will solve them. Don't just complain, but think."}
                 </p>
-                <p className="bg-gray-700 outline-none text-white text-lg resize-none my-4 px-4 py-4 shadow-lg min-h-24">
+                <p className="bg-gray-700 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg h-24 overflow-y-scroll">
                     {data.length > 0 && data[0].textBoxes[4]}
                     {data.length <= 0 && "Use this box to write about your accomplishments, things you're happy about. Forget being humble for your efforts must be celebrated."}
                 </p>

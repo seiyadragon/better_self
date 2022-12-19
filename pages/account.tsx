@@ -1,14 +1,28 @@
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Footer from "../components/footer";
 import Navigation from "../components/navigation";
-import { useRouter } from "next/router";
 import LoginManager from "../components/login_manager";
 import HeadManager from "../components/head_manager";
+import {useEffect, useState} from 'react'
 
 
 const Account = () => {
     let user = useUser()
     let supabaseClient = useSupabaseClient()
+    
+    let [dataLength, setDataLength] = useState(0)
+
+    useEffect(() => {
+        async function loadData() {
+            const { data } = await supabaseClient.from('UserRoutines').select().eq("userid", user?.id)
+
+            setDataLength(data?.length !== undefined ? data.length : 0)
+        }
+
+        if (user) 
+            loadData()
+
+    }, [user, dataLength])
 
     if (!user)
         return <LoginManager/>
@@ -27,6 +41,7 @@ const Account = () => {
                <p className="py-4 text-4xl">Welcome!</p>
                <p className="py-2 text-left">ID: {user?.id}</p>
                <p className="py-2 text-left">Email: {user?.email}</p>
+               <p className="py-2 text-left">Tracked days: {dataLength} days</p>
                <button 
                     className="py-8 px-16 my-32 bg-gray-700 hover:bg-gray-600 self-center shadow-lg text-2xl text-orange-400" 
                     onClick={async (MouseEvent) => supabaseClient.auth.signOut()}

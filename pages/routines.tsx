@@ -39,12 +39,11 @@ const routineDateToDate = (date: RoutineDate) => {
 }
 
 type RoutinesProps = {
-    routineData: [any],
     date: RoutineDate,
     dateString: string
 }
 
-const Routines = ({routineData, date, dateString}: RoutinesProps) => {
+const Routines = ({date, dateString}: RoutinesProps) => {
     const dateDate = routineDateToDate(date)
 
     const prevDate = new Date(dateDate)
@@ -85,6 +84,14 @@ const Routines = ({routineData, date, dateString}: RoutinesProps) => {
                         {">"}
                     </Link>
                 </section>
+                <p className="text-white py-4">
+                    {`
+                        Track every single aspect of your life. In doing this you bring control and organization.
+                        You gain the ability to look at your life from an objective angle, it allows you to detach emotion 
+                        and yourself from the subject of your own life. Write everything down and read it afterwards, it will
+                        help you remember.
+                    `}
+                </p>
                 <TaskManager date={dateString}/>
             </section>
             <Footer />
