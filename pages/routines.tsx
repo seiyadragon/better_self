@@ -69,14 +69,14 @@ const Routines = ({date, dateString}: RoutinesProps) => {
             />
             <Navigation />
             <section className="mx-4 md:mx-12 lg:mx-24">
-                <section className="flex flex-row justify-center gap-12 mt-8">
+                <section className="flex flex-row justify-center gap-12 mt-8 shadow-lg py-8 bg-gray-900">
                     <Link 
                         className="text-orange-400 text-2xl hover:scale-150 transition-transform"
                         href={"/routines?date=" + prevDate.toDateString().replaceAll(" ", "_")}
                     >
                         {"<"}
                     </Link>
-                    <p className="text-orange-400 text-2xl border-b-2 border-orange-400">{dateDate.toDateString()}</p>
+                    <p className="text-orange-400 text-2xl">{dateDate.toDateString()}</p>
                     <Link 
                         className="text-orange-400 text-2xl hover:scale-150 transition-transform"
                         href={"/routines?date=" + nextDate.toDateString().replaceAll(" ", "_")}
