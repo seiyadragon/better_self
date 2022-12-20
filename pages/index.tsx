@@ -48,7 +48,7 @@ const Index = ({quote}: IndexProps) => {
             />
             <section className="backdrop-blur-md">
                 <Navigation />
-                <section className="mx-4 md:mx-12 lg:mx-24 text-center">
+                <section className="mx-4 md:mx-12 lg:mx-24 text-center min-h-screen">
                     <Logo />
                     <QuoteSection quote={quote} />
                 </section>

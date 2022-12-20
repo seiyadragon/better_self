@@ -25,7 +25,7 @@ const Login = () => {
                 `}
             />
             <Navigation />
-            <section className="px-4 md:px-12 lg:px-24 text-white">
+            <section className="px-4 md:px-12 lg:px-24 text-white min-h-screen">
                 <Logo />
                 <Auth
                     redirectTo="http://localhost:3000"

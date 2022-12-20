@@ -68,7 +68,7 @@ const Routines = ({date, dateString}: RoutinesProps) => {
                 `}
             />
             <Navigation />
-            <section className="mx-4 md:mx-12 lg:mx-24">
+            <section className="mx-4 md:mx-12 lg:mx-24 min-h-screen">
                 <section className="flex flex-row justify-center gap-12 mt-8 shadow-lg py-8 bg-gray-900">
                     <Link 
                         className="text-orange-400 text-2xl hover:scale-150 transition-transform"

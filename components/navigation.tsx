@@ -2,7 +2,7 @@ import { useUser } from '@supabase/auth-helpers-react';
 import Image from 'next/image'
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { FaCalendar, FaHome, FaRedoAlt } from 'react-icons/fa'
+import { FaCalendar, FaCalendarAlt, FaCheckSquare, FaHome, FaRedoAlt, FaWineBottle } from 'react-icons/fa'
 
 const HEADER_CLASS: string = "bg-gray-900 opacity-90 w-full text-orange-400 text-2xl sticky top-0 pt-1 flex z-50"
 const BUTTON_CLASS: string = 'hover:scale-150 transition-transform mx-2 my-4'
@@ -46,7 +46,10 @@ export const Navigation = () => {
                         <FaHome />
                     </Link>
                     <Link href={"/routines?date=" + date.toDateString().replaceAll(" ", "_")} className={BUTTON_CLASS}>
-                        <FaRedoAlt/>
+                        <FaCalendarAlt/>
+                    </Link>
+                    <Link href={"/habits"} className={BUTTON_CLASS}>
+                        <FaCheckSquare/>
                     </Link>
                 </section>
             }

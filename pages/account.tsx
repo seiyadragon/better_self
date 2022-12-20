@@ -37,7 +37,7 @@ const Account = () => {
                 `}
             />
             <Navigation />
-            <section className="mx-4 md:mx-12 lg:mx-24 text-center text-2xl text-white">
+            <section className="mx-4 md:mx-12 lg:mx-24 text-center text-2xl text-white min-h-screen">
                <p className="py-4 text-4xl">Welcome!</p>
                <p className="py-2 text-left">ID: {user?.id}</p>
                <p className="py-2 text-left">Email: {user?.email}</p>
