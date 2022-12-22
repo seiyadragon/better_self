@@ -2,10 +2,12 @@ import { useUser } from '@supabase/auth-helpers-react';
 import Image from 'next/image'
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { FaCalendar, FaCalendarAlt, FaCheckSquare, FaHome, FaRedoAlt, FaWineBottle } from 'react-icons/fa'
+import { FaArrowAltCircleDown, FaBookOpen, FaCalendar, FaCalendarAlt, FaCheckSquare, FaClock, FaHome, FaQuestion, FaRedoAlt, FaWineBottle } from 'react-icons/fa'
 
 const HEADER_CLASS: string = "bg-gray-900 opacity-90 w-full text-orange-400 text-2xl sticky top-0 pt-1 flex z-50"
 const BUTTON_CLASS: string = 'hover:scale-150 transition-transform mx-2 my-4'
+
+const SMALL_NAVBAR_PIX_SIZE = 680
 
 export const Navigation = () => {
     let user = useUser()
@@ -16,14 +18,14 @@ export const Navigation = () => {
 
     if (typeof window !== "undefined") {
         useEffect(() => {
-            if (window.innerWidth <= 600) {
+            if (window.innerWidth <= SMALL_NAVBAR_PIX_SIZE) {
                 setWide(false)
             } else {
                 setWide(true)
             } 
 
             window.addEventListener("resize", (event) => {
-                if (window.innerWidth <= 600) {
+                if (window.innerWidth <= SMALL_NAVBAR_PIX_SIZE) {
                     setWide(false)
                 } else {
                     setWide(true)
@@ -45,16 +47,21 @@ export const Navigation = () => {
                     <Link href="/" className={BUTTON_CLASS}>
                         <FaHome />
                     </Link>
-                    <Link href={"/routines?date=" + date.toDateString().replaceAll(" ", "_")} className={BUTTON_CLASS}>
-                        <FaCalendarAlt/>
+                    <Link href={"/diary?date=" + date.toDateString().replaceAll(" ", "_")} className={BUTTON_CLASS}>
+                        <FaBookOpen />
                     </Link>
                     <Link href={"/habits"} className={BUTTON_CLASS}>
-                        <FaCheckSquare/>
+                        <FaClock />
+                    </Link>
+                    <Link href={"/blogs"} className={BUTTON_CLASS}>
+                        <FaQuestion />
                     </Link>
                 </section>
             }
             {!isWide &&
-                <button className={BUTTON_CLASS} onClick={() => setMenuOpen(!isMenuOpen)}>▼</button>
+                <button className={BUTTON_CLASS} onClick={() => setMenuOpen(!isMenuOpen)}>
+                    <FaArrowAltCircleDown />
+                </button>
             }
             <section className='w-full flex justify-end'>
                 <Link href={user ? "/account" : "/login"} className="hover:underline my-2 mx-6">

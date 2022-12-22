@@ -67,6 +67,12 @@ const Habits = () => {
                         <FaPlusSquare />
                     </button>
                 </section>
+                <p className="text-white">
+                    {`
+                        Keep track of your habits here. Every day you do the habit, you count up one, but
+                        if you fail, even one day, you have to reset it to 0.
+                    `}
+                </p>
                 {data.map((habit) => {
                     return <Habit key={habit.id} name={habit.name} days={habit.days} id={habit.id}/>
                 })}
