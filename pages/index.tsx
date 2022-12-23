@@ -5,6 +5,7 @@ import Navigation from "../components/navigation";
 import QuoteSection from "../components/quote_section";
 import {Quote} from "../components/quote_section";
 import HeadManager from "../components/head_manager";
+import BreadCrumbs from "../components/breadcrumbs";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
@@ -48,6 +49,7 @@ const Index = ({quote}: IndexProps) => {
             />
             <section className="backdrop-blur-md">
                 <Navigation />
+                <BreadCrumbs breadCrumbs={["Home", "Test"]} />
                 <section className="mx-4 md:mx-12 lg:mx-24 text-center min-h-screen">
                     <Logo />
                     <QuoteSection quote={quote} />
