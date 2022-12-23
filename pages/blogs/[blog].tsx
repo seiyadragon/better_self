@@ -1,17 +1,30 @@
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import Footer from "../../components/footer";
+import { GetServerSideProps } from "next";
+import {useState, useEffect} from 'react';
 import HeadManager from "../../components/head_manager";
 import Navigation from "../../components/navigation";
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import Footer from "../../components/footer";
 
-const Blogs = () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {
+            blogID: context.query.blog
+        }
+    }
+}
+
+type BlogProps = {
+    blogID: number
+}
+
+const Blog = ({blogID}: BlogProps) => {
     let supabaseClient = useSupabaseClient()
     let [data, setData] = useState(new Array<any>)
 
     useEffect(() => {
         async function load() {
-            const { data } = await supabaseClient.from('Blogs').select()
+            const { data } = await supabaseClient.from('Blogs').select().eq("id", blogID)
             setData(data !== null ? data : new Array<any>)
         }
 
@@ -22,7 +35,7 @@ const Blogs = () => {
         <main className="bg-gray-800">
             <HeadManager 
                 title="View all the blogs"
-                keywords="Journal, Self improvement, Learn new skills, Better yourself, Improve, Self++, Achieve Success, Achieve your goals, Learn"
+                keywords={data.length > 0 ? data[0].keywords : "Not found"}
                 description={`
                     View all the blogs on this site. They range in many subjects. Feel free to browse.
                 `}
@@ -31,15 +44,18 @@ const Blogs = () => {
             <ul className="mx-4 md:mx-12 lg:mx-24 min-h-screen text-white text-center text-2xl py-4">
                 {data.map((blog) => {
                     return (
-                        <Link href={`/blogs/${blog.id}`}>
-                            <p className="py-4 px-4 shadow-lg bg-gray-700 hover:scale-105 transition-transform">
+                        <section>
+                            <p className="py-4 px-4 shadow-lg bg-gray-700">
                                 {blog.name}
                             </p>
-                        </Link>
+                            <p className="py-4 px-4 shadow-lg bg-gray-700 text-left text-lg">
+                                {blog.body}
+                            </p>
+                        </section>
                     )
                 })}
             </ul>
             <Footer />
         </main>
     )
-}; export default Blogs
+}; export default Blog
