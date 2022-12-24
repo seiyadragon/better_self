@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useUser } from "@supabase/auth-helpers-react";
 import LoginManager from "../components/login_manager";
 import HeadManager from "../components/head_manager";
+import BreadCrumbs from "../components/breadcrumbs";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const dateSplit = ctx.query.date !== undefined ? ctx.query.date.toString().split("_") : new Array<string>
@@ -68,6 +69,7 @@ const Routines = ({date, dateString}: RoutinesProps) => {
                 `}
             />
             <Navigation />
+            <BreadCrumbs breadCrumbs={[{name: "Life++", href:"/"}, {name: "Diary", href:"/diary"}]} />
             <section className="mx-4 md:mx-12 lg:mx-24 min-h-screen">
                 <section className="flex flex-row justify-center gap-12 mt-8 shadow-lg py-8 bg-gray-900">
                     <Link 

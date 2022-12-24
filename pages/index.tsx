@@ -49,7 +49,7 @@ const Index = ({quote}: IndexProps) => {
             />
             <section className="backdrop-blur-md">
                 <Navigation />
-                <BreadCrumbs breadCrumbs={["Home", "Test"]} />
+                <BreadCrumbs breadCrumbs={[{name: "Life++", href:"/"}]} />
                 <section className="mx-4 md:mx-12 lg:mx-24 text-center min-h-screen">
                     <Logo />
                     <QuoteSection quote={quote} />
