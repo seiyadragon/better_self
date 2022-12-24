@@ -4,6 +4,7 @@ import Navigation from "../components/navigation";
 import LoginManager from "../components/login_manager";
 import HeadManager from "../components/head_manager";
 import {useEffect, useState} from 'react'
+import BreadCrumbs from "../components/breadcrumbs";
 
 
 const Account = () => {
@@ -37,6 +38,7 @@ const Account = () => {
                 `}
             />
             <Navigation />
+            <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}, {name: "Account", href:"/account"}]} />
             <section className="mx-4 md:mx-12 lg:mx-24 text-center text-2xl text-white min-h-screen">
                <p className="py-4 text-4xl">Welcome!</p>
                <p className="py-2 text-left">ID: {user?.id}</p>

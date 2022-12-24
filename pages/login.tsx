@@ -5,6 +5,7 @@ import Navigation from "../components/navigation";
 import { useRouter } from "next/router";
 import Logo from "../components/logo";
 import HeadManager from "../components/head_manager";
+import BreadCrumbs from "../components/breadcrumbs";
 
 const Login = () => {
     let supabaseClient = useSupabaseClient()
@@ -25,6 +26,7 @@ const Login = () => {
                 `}
             />
             <Navigation />
+            <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}, {name: "Login", href:"/login"}]} />
             <section className="px-4 md:px-12 lg:px-24 text-white min-h-screen">
                 <Logo />
                 <Auth

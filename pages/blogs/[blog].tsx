@@ -5,6 +5,7 @@ import HeadManager from "../../components/head_manager";
 import Navigation from "../../components/navigation";
 import Link from "next/link";
 import Footer from "../../components/footer";
+import BreadCrumbs from "../../components/breadcrumbs";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
@@ -41,6 +42,13 @@ const Blog = ({blogID}: BlogProps) => {
                 `}
             />
             <Navigation />
+            <BreadCrumbs breadCrumbs={
+                [
+                    {name: "Home", href:"/"}, 
+                    {name: "Blogs", href:"/blogs"},
+                    {name: data.length > 0 ? data[0].name : "Not found", href:"/blogs/" + blogID}
+                ]
+            } />
             <ul className="mx-4 md:mx-12 lg:mx-24 min-h-screen text-white text-center text-2xl py-4">
                 {data.map((blog) => {
                     return (

@@ -69,7 +69,7 @@ const Routines = ({date, dateString}: RoutinesProps) => {
                 `}
             />
             <Navigation />
-            <BreadCrumbs breadCrumbs={[{name: "Life++", href:"/"}, {name: "Diary", href:"/diary"}]} />
+            <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}, {name: "Diary", href:"/diary"}]} />
             <section className="mx-4 md:mx-12 lg:mx-24 min-h-screen">
                 <section className="flex flex-row justify-center gap-12 mt-8 shadow-lg py-8 bg-gray-900">
                     <Link 

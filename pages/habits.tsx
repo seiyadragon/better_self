@@ -6,6 +6,7 @@ import { FaPlusSquare } from "react-icons/fa";
 import {useState, useEffect} from 'react'
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Habit from "../components/habit";
+import BreadCrumbs from "../components/breadcrumbs";
 
 
 const Habits = () => {
@@ -41,6 +42,7 @@ const Habits = () => {
                 `}
             />
             <Navigation />
+            <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}, {name: "Habits", href:"/habits"}]} />
             <section className="mx-4 md:mx-12 lg:mx-24 min-h-screen">
                 <section className="flex bg-gray-700 text-white my-8">
                     <input 

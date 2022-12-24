@@ -4,6 +4,7 @@ import HeadManager from "../../components/head_manager";
 import Navigation from "../../components/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import BreadCrumbs from "../../components/breadcrumbs";
 
 const Blogs = () => {
     let supabaseClient = useSupabaseClient()
@@ -28,6 +29,7 @@ const Blogs = () => {
                 `}
             />
             <Navigation />
+            <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}, {name: "Blogs", href:"/blogs"}]} />
             <ul className="mx-4 md:mx-12 lg:mx-24 min-h-screen text-white text-center text-2xl py-4">
                 {data.map((blog) => {
                     return (
