@@ -49,16 +49,20 @@ const Blog = ({blogID}: BlogProps) => {
                     {name: data.length > 0 ? data[0].name : "Not found", href:"/blogs/" + blogID}
                 ]
             } />
-            <ul className="mx-4 md:mx-12 lg:mx-24 min-h-screen text-white text-center text-2xl py-4">
+            <ul className="md:mx-24 lg:mx-72 min-h-screen text-white text-center text-2xl py-4 pb-16">
                 {data.map((blog) => {
                     return (
-                        <section>
-                            <p className="py-4 px-4 shadow-lg bg-gray-700">
+                        <section className="py-12 bg-gray-700 my-8" key={blog}>
+                            <p className="py-4 px-4 text-orange-400">
                                 {blog.name}
                             </p>
-                            <p className="py-4 px-4 shadow-lg bg-gray-700 text-left text-lg">
-                                {blog.body}
-                            </p>
+                            {blog.body.map((paragraph: string) => {
+                                return (
+                                    <p className="py-2 px-4 text-left text-lg indent-16" key={paragraph}>
+                                        {paragraph}
+                                    </p>
+                                )
+                            })}
                         </section>
                     )
                 })}

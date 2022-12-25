@@ -61,7 +61,7 @@ const Routines = ({date, dateString}: RoutinesProps) => {
     return (
         <main className="bg-gray-800">
             <HeadManager 
-                title="View your routines"
+                title="View your diary"
                 keywords="Journal, Self improvement, Learn new skills, Better yourself, Improve, Self++, Achieve Success, Achieve your goals"
                 description={`
                     Write down and view all your daily activities. This will help you keep track of everything you do, 

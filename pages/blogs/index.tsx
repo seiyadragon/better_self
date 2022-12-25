@@ -33,7 +33,7 @@ const Blogs = () => {
             <ul className="mx-4 md:mx-12 lg:mx-24 min-h-screen text-white text-center text-2xl py-4">
                 {data.map((blog) => {
                     return (
-                        <Link href={`/blogs/${blog.id}`}>
+                        <Link href={`/blogs/${blog.id}`} key={blog}>
                             <p className="py-4 px-4 shadow-lg bg-gray-700 hover:scale-105 transition-transform">
                                 {blog.name}
                             </p>

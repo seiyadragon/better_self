@@ -6,18 +6,20 @@ import HeadManager from "../components/head_manager";
 import {useEffect, useState} from 'react'
 import BreadCrumbs from "../components/breadcrumbs";
 
-
 const Account = () => {
     let user = useUser()
     let supabaseClient = useSupabaseClient()
     
     let [dataLength, setDataLength] = useState(0)
+    let [habitsLength, setHabitsLength] = useState(0)
 
     useEffect(() => {
         async function loadData() {
             const { data } = await supabaseClient.from('UserRoutines').select().eq("userid", user?.id)
+            const { data: habits } = await supabaseClient.from('UserHabits').select().eq("userid", user?.id)
 
             setDataLength(data?.length !== undefined ? data.length : 0)
+            setHabitsLength(habits?.length !== undefined ? habits.length : 0)
         }
 
         if (user) 
@@ -43,7 +45,8 @@ const Account = () => {
                <p className="py-4 text-4xl">Welcome!</p>
                <p className="py-2 text-left">ID: {user?.id}</p>
                <p className="py-2 text-left">Email: {user?.email}</p>
-               <p className="py-2 text-left">Tracked days: {dataLength} days</p>
+               <p className="py-2 text-left">Diary: {dataLength} days</p>
+               <p className="py-2 text-left">Habits: {habitsLength} habits</p>
                <button 
                     className="py-8 px-16 my-32 bg-gray-700 hover:bg-gray-600 self-center shadow-lg text-2xl text-orange-400" 
                     onClick={async (MouseEvent) => supabaseClient.auth.signOut()}
