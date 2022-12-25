@@ -2,7 +2,7 @@ import { useUser } from '@supabase/auth-helpers-react';
 import Image from 'next/image'
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { FaArrowAltCircleDown, FaBookOpen, FaCalendar, FaCalendarAlt, FaCheckSquare, FaClock, FaHome, FaQuestion, FaRedoAlt, FaWineBottle } from 'react-icons/fa'
+import { FaArrowAltCircleDown, FaBookOpen, FaClock, FaHome, FaQuestion } from 'react-icons/fa'
 
 const HEADER_CLASS: string = "bg-gray-900 opacity-90 w-full text-orange-400 text-2xl sticky top-0 pt-1 flex z-50"
 const BUTTON_CLASS: string = 'hover:scale-150 transition-transform mx-2 my-4'
@@ -41,7 +41,7 @@ export const Navigation = () => {
                 <section 
                     className={
                         'flex ' + ((isMenuOpen && !isWide) ? 
-                        'absolute top-16 left-10 flex-col bg-gray-900 opacity-90 px-16' : 
+                        'absolute top-16 left-10 flex-col bg-gray-900 px-16' : 
                         '')}
                 >
                     <Link href="/" className={BUTTON_CLASS}>

@@ -16,11 +16,11 @@ const BreadCrumbs = ({breadCrumbs}: BreadCrumbsProps) => {
                 let isLast = index >= breadCrumbs.length - 1 ? true : false
 
                 return (
-                    <Link href={crumb.href} className="flex flex-row" onClick={(event) => {
+                    <Link key={crumb.name} href={crumb.href} className="flex flex-row" onClick={(event) => {
                         isLast ? event.preventDefault() : true
                     }}>
                         {index > 0 && <p className="mx-2">→</p>}
-                        <p className={isLast ? "text-left text-orange-400" : "text-left"}>{crumb.name}</p>
+                        <p className={isLast ? "text-left text-orange-400" : "text-left hover:underline"}>{crumb.name}</p>
                     </Link>
                 )
             })}
