@@ -42,7 +42,7 @@ const TaskManager = ({date}: TaskManagerProps) => {
         if (user) 
             loadData()
 
-    }, [user, data, isEdit])
+    }, [user, data, isEdit, date, supabaseClient])
 
     if (isEdit)
         return (
