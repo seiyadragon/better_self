@@ -30,7 +30,7 @@ const Blog = ({blogID}: BlogProps) => {
         }
 
         load()
-    }, [data, supabaseClient])
+    }, [data, supabaseClient, blogID])
 
     return (
         <main className="bg-gray-800">

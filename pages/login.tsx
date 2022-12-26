@@ -15,7 +15,7 @@ const Login = () => {
 
     useEffect(() => {
         if (user)
-            router.push("http://localhost:3000/")
+            router.push(process.env.HOSTNAME !== undefined ? process.env.HOSTNAME : "")
     }, [user, router])
 
     return (
