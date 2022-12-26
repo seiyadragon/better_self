@@ -12,7 +12,7 @@ const LoginManager = () => {
                 <p className="text-4xl py-16 my-16">{"Login to view this page."}</p>
                 <Link 
                     href="/login" 
-                    className="py-16 text-4xl text-orange-400 bg-gray-700 w-32 shadow-lg hover:bg-gray-600"
+                    className="py-16 text-4xl text-orange-400 bg-gray-700 w-64 shadow-lg hover:bg-gray-600"
                 >
                     Login!
                 </Link>

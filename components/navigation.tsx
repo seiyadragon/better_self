@@ -65,7 +65,7 @@ export const Navigation = () => {
             }
             <section className='w-full flex justify-end'>
                 <Link href={user ? "/account" : "/login"} className="hover:underline my-2 mx-6">
-                    {user ? user?.email : "Login"}
+                    {user ? user?.email?.split("@")[0] : "Login"}
                 </Link>
             </section>
         </header>
