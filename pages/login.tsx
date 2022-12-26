@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 const Login = () => {
     let supabaseClient = useSupabaseClient()
-    
+
     return (
         <main className="min-h-screen absolute bg-gray-800 w-full">
             <HeadManager 
@@ -25,7 +25,7 @@ const Login = () => {
             <section className="px-4 md:px-12 lg:px-24 text-white">
                 <Logo />
                 <Auth
-                    redirectTo={process.env.HOSTNAME !== undefined ? process.env.HOSTNAME : ""}
+                    redirectTo={process.env.HOSTNAME + ""}
                     supabaseClient={supabaseClient}
                     appearance={{ theme: ThemeSupa }}
                     socialLayout="horizontal"
