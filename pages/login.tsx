@@ -6,15 +6,18 @@ import { useRouter } from "next/router";
 import Logo from "../components/logo";
 import HeadManager from "../components/head_manager";
 import BreadCrumbs from "../components/breadcrumbs";
+import { useEffect } from "react";
 
 const Login = () => {
     let supabaseClient = useSupabaseClient()
 
-    if (useUser()) {
-        let router = useRouter()
+    useEffect(() => {
+        if (useUser()) {
+            let router = useRouter()
 
-        router.push("http://localhost:3000/")
-    }
+            router.push("http://localhost:3000/")
+        }
+    })
 
     return (
         <main className="min-h-screen absolute bg-gray-800 w-full">

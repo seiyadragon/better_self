@@ -25,7 +25,7 @@ const Account = () => {
         if (user) 
             loadData()
 
-    }, [user, dataLength])
+    }, [user, dataLength, supabaseClient])
 
     if (!user)
         return <LoginManager/>

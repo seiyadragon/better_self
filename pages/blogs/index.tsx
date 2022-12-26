@@ -17,7 +17,7 @@ const Blogs = () => {
         }
 
         load()
-    }, [data])
+    }, [data, supabaseClient])
 
     return (
         <main className="bg-gray-800">

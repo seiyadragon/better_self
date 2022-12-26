@@ -26,7 +26,7 @@ const Habits = () => {
 
         if (user)
             load()
-    }, [user, data])
+    }, [user, data, supabaseClient])
 
     if (!user)
         return <LoginManager />
