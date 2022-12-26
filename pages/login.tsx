@@ -10,14 +10,13 @@ import { useEffect } from "react";
 
 const Login = () => {
     let supabaseClient = useSupabaseClient()
+    let router = useRouter()
+    let user = useUser()
 
     useEffect(() => {
-        if (useUser()) {
-            let router = useRouter()
-
+        if (user)
             router.push("http://localhost:3000/")
-        }
-    })
+    }, [user, router])
 
     return (
         <main className="min-h-screen absolute bg-gray-800 w-full">

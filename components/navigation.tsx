@@ -16,8 +16,8 @@ export const Navigation = () => {
     let [isWide, setWide] = useState(true)
     let [isMenuOpen, setMenuOpen] = useState(false)
 
-    if (typeof window !== "undefined") {
-        useEffect(() => {
+    useEffect(() => {
+            if (typeof window !== "undefined") {
             if (window.innerWidth <= SMALL_NAVBAR_PIX_SIZE) {
                 setWide(false)
             } else {
@@ -31,8 +31,8 @@ export const Navigation = () => {
                     setWide(true)
                 }
             })
-        }, [isWide])
-    }
+        }
+    }, [isWide])
 
     return (
         <header className={HEADER_CLASS}>
