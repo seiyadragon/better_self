@@ -12,7 +12,7 @@ const SMALL_NAVBAR_PIX_SIZE = 680
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
-        var text = await (await fetch("http://localhost:3000/api/quote")).json()
+        var text = await (await fetch(process.env.HOSTNAME + "api/quote")).json()
         var quote: Quote = {
             author: text.Author,
             quote: text.Quote,
