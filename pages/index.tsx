@@ -6,6 +6,9 @@ import QuoteSection from "../components/quote_section";
 import {Quote} from "../components/quote_section";
 import HeadManager from "../components/head_manager";
 import BreadCrumbs from "../components/breadcrumbs";
+import { useEffect, useState } from "react";
+
+const SMALL_NAVBAR_PIX_SIZE = 680
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
@@ -37,8 +40,35 @@ type IndexProps = {
 }
 
 const Index = ({quote}: IndexProps) => {
+    let [isWide, setWide] = useState(true)
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            if (window.innerWidth <= SMALL_NAVBAR_PIX_SIZE) {
+                setWide(false)
+            } else {
+                setWide(true)
+            }
+
+            window.addEventListener("resize", (event) => {
+                if (window.innerWidth <= SMALL_NAVBAR_PIX_SIZE) {
+                    setWide(false)
+                } else {
+                    setWide(true)
+                }
+            })
+        }
+    }, [isWide])
+
     return (
-        <main className="bg-gray-800" style={{"backgroundImage": "url(/home_background.jpg)", "backgroundSize": "cover"}}>
+        <main className="bg-gray-800" style={{
+            "backgroundImage": isWide ? 
+                "url(/home_background.jpg)" : 
+                "url(/home_background_mobile.jpg)", 
+            "backgroundSize": isWide ? 
+                "cover" :
+                "640px"
+        }}>
             <HeadManager 
                 title="The home of self improvement!"
                 keywords="Journal, Self improvement, Learn new skills, Better yourself, Improve, Self++, Achieve Success, Achieve your goals"
