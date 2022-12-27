@@ -23,7 +23,7 @@ const Login = () => {
             <section className="px-4 md:px-12 lg:px-24 text-white">
                 <Logo />
                 <Auth
-                    redirectTo={process.env.HOSTNAME + ""}
+                    redirectTo={"https://better-self.vercel.app/"}
                     supabaseClient={supabaseClient}
                     appearance={{ theme: ThemeSupa }}
                     socialLayout="horizontal"
