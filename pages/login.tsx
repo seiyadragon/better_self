@@ -2,11 +2,9 @@ import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react'
 import Footer from "../components/footer";
 import Navigation from "../components/navigation";
-import { useRouter } from "next/router";
 import Logo from "../components/logo";
 import HeadManager from "../components/head_manager";
 import BreadCrumbs from "../components/breadcrumbs";
-import { useEffect } from "react";
 
 const Login = () => {
     let supabaseClient = useSupabaseClient()
