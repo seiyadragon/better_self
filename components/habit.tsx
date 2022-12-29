@@ -17,7 +17,7 @@ const Habit = ({name, days, id}: HabitProps) => {
         let sh1 = split.slice(0, split.length / 2)
         let sh2 = split.slice((split.length / 2), split.length)
 
-        if (split.length > 10)
+        if (split.length >= 10)
             finalName = finalName.concat(" " + sh1 + "-" + sh2 + " ")
 
         else finalName = finalName.concat(" " + sh1 + sh2 + " ")
