@@ -34,7 +34,7 @@ const Blogs = () => {
                 {data.map((blog) => {
                     return (
                         <Link href={`/blogs/${blog.id}`} key={blog}>
-                            <p className="py-4 px-4 shadow-lg bg-gray-700 hover:scale-105 transition-transform">
+                            <p className="py-4 px-4 shadow-lg bg-blue-600 hover:scale-105 transition-transform">
                                 {blog.name}
                             </p>
                         </Link>

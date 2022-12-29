@@ -5,6 +5,8 @@ import Navigation from "../components/navigation";
 import Logo from "../components/logo";
 import HeadManager from "../components/head_manager";
 import BreadCrumbs from "../components/breadcrumbs";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Login = () => {
     let supabaseClient = useSupabaseClient()
@@ -23,7 +25,6 @@ const Login = () => {
             <section className="px-4 md:px-12 lg:px-24 text-white">
                 <Logo />
                 <Auth
-                    redirectTo={"https://better-self.vercel.app/"}
                     supabaseClient={supabaseClient}
                     appearance={{ theme: ThemeSupa }}
                     socialLayout="horizontal"
