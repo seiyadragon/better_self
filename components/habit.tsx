@@ -10,9 +10,22 @@ type HabitProps = {
 const Habit = ({name, days, id}: HabitProps) => {
     let supabaseClient = useSupabaseClient()
 
+    let nameSplit = name.split(" ")
+    let finalName = ""
+
+    nameSplit.map((split) => {
+        let sh1 = split.slice(0, split.length / 2)
+        let sh2 = split.slice((split.length / 2), split.length)
+
+        if (split.length > 10)
+            finalName = finalName.concat(" " + sh1 + "-" + sh2 + " ")
+
+        else finalName = finalName.concat(" " + sh1 + sh2 + " ")
+    })
+
     return (
         <section className="flex text-white my-4 text-base">
-            <p className="bg-gray-700 w-36 h-36 py-4 px-4 text-center overflow-x-hidden">{name}</p>
+            <p className="bg-gray-700 w-36 h-36 py-4 px-4 text-center overflow-x-hidden">{finalName}</p>
             <p className="bg-gray-700 w-36 h-36 py-4 px-4 ml-4 text-center overflow-x-hidden">{days} days</p>
             <section className="ml-4 w-36 h-36">
                 <button 
