@@ -48,7 +48,7 @@ const Account = () => {
                <p className="py-2 text-left">Diary: {dataLength} days</p>
                <p className="py-2 text-left">Habits: {habitsLength} habits</p>
                <button 
-                    className="py-8 px-16 my-32 bg-gray-700 hover:bg-gray-600 self-center shadow-lg text-2xl text-orange-400" 
+                    className="py-8 px-16 my-32 lg:w-96 w-32 bg-red-600 hover:bg-red-500 self-center shadow-lg text-2xl" 
                     onClick={async (MouseEvent) => supabaseClient.auth.signOut()}
                 >
                     Sign Out!
