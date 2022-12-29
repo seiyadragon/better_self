@@ -12,9 +12,9 @@ const Habit = ({name, days, id}: HabitProps) => {
 
     return (
         <section className="flex text-white my-4 text-base">
-            <p className="bg-gray-700 w-36 h-36 py-4 px-4 text-center max-w-md max-h-36">{name}</p>
-            <p className="bg-gray-700 w-36 h-36 py-4 px-4 ml-4 text-center max-w-md max-h-36">{days} days</p>
-            <section className="ml-4 w-36 h-36 max-w-md max-h-36">
+            <p className="bg-gray-700 w-36 h-36 py-4 px-4 text-center overflow-x-hidden">{name}</p>
+            <p className="bg-gray-700 w-36 h-36 py-4 px-4 ml-4 text-center overflow-x-hidden">{days} days</p>
+            <section className="ml-4 w-36 h-36">
                 <button 
                     className="w-full h-1/3 bg-green-400 px-3 hover:scale-105 transition-transform flex justify-center items-center"
                     onClick={async () => await supabaseClient.from("UserHabits").update({days: days + 1}).eq("id", id)}
