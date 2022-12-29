@@ -148,7 +148,7 @@ const TaskManager = ({date}: TaskManagerProps) => {
                     {data.length <= 0 && TEXT_AREA_PLACEHOLDER5}
                 </p>
                 <button 
-                    className="py-8 my-16 w-32 mx-4 md:w-96 md:mx-16 bg-green-600 hover:bg-green-500 shadow-lg text-2xl self-center text-center" 
+                    className="py-8 my-16 w-64 mx-4 md:w-96 md:mx-16 bg-green-600 hover:bg-green-500 shadow-lg text-2xl self-center text-center" 
                     onClick={() => setIsEdit(!isEdit)}
                 >
                     Edit!
