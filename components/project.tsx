@@ -13,7 +13,7 @@ const Project = ({project}: ProjectProps) => {
 
     return (
         <section>
-            <section className="w-96 text-lg shadow-lg text-white bg-blue-600 flex">
+            <section className="md:w-96 w-full text-lg shadow-lg text-white bg-blue-600 flex">
                 <button className={`hover:bg-blue-500 w-full px-4 py-4 shadow-lg text-left ${project.completed ? "line-through" : ""}`} onClick={() => setOpen(!isOpen)}>
                     {(project.name).toString().toUpperCase()}
                 </button>
