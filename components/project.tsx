@@ -12,7 +12,7 @@ const Project = ({project}: ProjectProps) => {
     let supabaseClient = useSupabaseClient()
 
     return (
-        <section>
+        <section className="w-full">
             <section className="md:w-96 w-full text-lg shadow-lg text-white bg-blue-600 flex">
                 <button className={`hover:bg-blue-500 w-full px-4 py-4 shadow-lg text-left ${project.completed ? "line-through" : ""}`} onClick={() => setOpen(!isOpen)}>
                     {(project.name).toString().toUpperCase()}
@@ -27,7 +27,7 @@ const Project = ({project}: ProjectProps) => {
             </section>
             {isOpen && project.tasks !== null && project.tasks.map((task: any) => {
                 return (
-                    <section key={task.name} className={`text-white bg-blue-600 shadow-lg w-96 px-4 py-4 flex gap-4 ${task.completed ? "line-through" : ""}`}>
+                    <section key={task.name} className={`text-white bg-blue-600 shadow-lg md:w-96 w-full px-4 py-4 flex gap-4 ${task.completed ? "line-through" : ""}`}>
                         <input type="checkbox" checked={task.completed} onChange={async () => {
                             task.completed = !task.completed
                             
@@ -65,7 +65,7 @@ const Project = ({project}: ProjectProps) => {
                 )
             })}
             {isOpen &&
-                <section className="text-black bg-blue-600 shadow-lg w-96 px-4 py-4 text-lg">
+                <section className="text-black bg-blue-600 shadow-lg md:w-96 w-full px-4 py-4 text-lg">
                     <section className="flex bg-white text-black">
                         <input 
                             className="w-full bg-white outline-none px-2 text-lg"
