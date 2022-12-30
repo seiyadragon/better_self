@@ -14,7 +14,7 @@ const Project = ({project}: ProjectProps) => {
     return (
         <section>
             <section className="w-96 text-lg shadow-lg text-white bg-blue-600 flex">
-                <button className={`hover:bg-blue-500 w-full px-4 py-4 shadow-lg ${project.completed ? "line-through" : ""}`} onClick={() => setOpen(!isOpen)}>
+                <button className={`hover:bg-blue-500 w-full px-4 py-4 shadow-lg text-left ${project.completed ? "line-through" : ""}`} onClick={() => setOpen(!isOpen)}>
                     {(project.name).toString().toUpperCase()}
                 </button>
                 <button className="hover:bg-blue-500 px-4 py-4 shadow-lg text-orange-400" onClick={
@@ -44,7 +44,7 @@ const Project = ({project}: ProjectProps) => {
 
                             await supabaseClient.from("UserProjects").update(project).eq("id", project.id)
                         }}/>
-                        <button onClick={
+                        <button className="hover:text-orange-400" onClick={
                             async (event) => {
                                 let newTasks: Array<any> = []
 
