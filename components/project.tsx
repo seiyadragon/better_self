@@ -12,7 +12,7 @@ const Project = ({project}: ProjectProps) => {
     let supabaseClient = useSupabaseClient()
 
     return (
-        <section className="w-full">
+        <section className="w-full lg:w-96">
             <section className="md:w-96 w-full text-lg shadow-lg text-white bg-blue-600 flex">
                 <button className={`hover:bg-blue-500 w-full px-4 py-4 shadow-lg text-left ${project.completed ? "line-through" : ""}`} onClick={() => setOpen(!isOpen)}>
                     {(project.name).toString().toUpperCase()}
