@@ -74,7 +74,7 @@ const Habits = () => {
                         if you fail, even one day, you have to reset it to 0.
                     `}
                 </p>
-                <section className="flex flex-wrap gap-x-40">
+                <section className="flex flex-wrap gap-x-7">
                     {data.map((habit) => {
                         return <Habit key={habit.id} name={habit.name} days={habit.days} id={habit.id}/>
                     })}
