@@ -19,7 +19,7 @@ const BreadCrumbs = ({breadCrumbs}: BreadCrumbsProps) => {
                     <Link key={crumb.name} href={crumb.href} className="flex flex-row" onClick={(event) => {
                         isLast ? event.preventDefault() : true
                     }}>
-                        {index > 0 && <p className="mx-2">→</p>}
+                        {index > 0 && <p className="mx-2">➣</p>}
                         <p className={isLast ? "text-left text-orange-400" : "text-left hover:underline"}>{crumb.name}</p>
                     </Link>
                 )

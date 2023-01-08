@@ -76,14 +76,14 @@ const Routines = ({date, dateString}: RoutinesProps) => {
                         className="text-orange-400 text-2xl hover:scale-150 transition-transform"
                         href={"/diary?date=" + prevDate.toDateString().replaceAll(" ", "_")}
                     >
-                        {"<"}
+                        {"↤"}
                     </Link>
                     <p className="text-orange-400 text-2xl">{dateDate.toDateString()}</p>
                     <Link 
                         className="text-orange-400 text-2xl hover:scale-150 transition-transform"
                         href={"/diary?date=" + nextDate.toDateString().replaceAll(" ", "_")}
                     >
-                        {">"}
+                        {"↦"}
                     </Link>
                 </section>
                 <p className="text-white py-4">
