@@ -91,7 +91,7 @@ const Routines = ({date, dateString}: RoutinesProps) => {
                         Track every single aspect of your life. In doing this you bring control and organization.
                         You gain the ability to look at your life from an objective angle, it allows you to detach emotion 
                         and yourself from the subject of your own life. Write everything down and read it afterwards, it will
-                        help you remember. You can make full use of HTML and Tailwind to style your day!
+                        help you remember. You can make full use of HTML and CSS to style your day!
                     `}
                 </p>
                 <TaskManager date={dateString}/>
