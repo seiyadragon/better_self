@@ -7,6 +7,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import LoginManager from "../components/login_manager";
 import HeadManager from "../components/head_manager";
 import BreadCrumbs from "../components/breadcrumbs";
+import { useState } from "react";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
     const dateSplit = ctx.query.date !== undefined ? ctx.query.date.toString().split("_") : new Array<string>
@@ -55,6 +56,8 @@ const Routines = ({date, dateString}: RoutinesProps) => {
 
     const user = useUser()
 
+    const [isEdit, setIsEdit] = useState(false)
+
     if (!user)
         return <LoginManager />
 
@@ -75,6 +78,7 @@ const Routines = ({date, dateString}: RoutinesProps) => {
                     <Link 
                         className="text-orange-400 text-2xl hover:scale-150 transition-transform"
                         href={"/diary?date=" + prevDate.toDateString().replaceAll(" ", "_")}
+                        onClick={() => setIsEdit(false)}
                     >
                         {"↤"}
                     </Link>
@@ -82,6 +86,7 @@ const Routines = ({date, dateString}: RoutinesProps) => {
                     <Link 
                         className="text-orange-400 text-2xl hover:scale-150 transition-transform"
                         href={"/diary?date=" + nextDate.toDateString().replaceAll(" ", "_")}
+                        onClick={() => setIsEdit(false)}
                     >
                         {"↦"}
                     </Link>
@@ -94,7 +99,7 @@ const Routines = ({date, dateString}: RoutinesProps) => {
                         help you remember. You can make full use of HTML and CSS to style your day!
                     `}
                 </p>
-                <TaskManager date={dateString}/>
+                <TaskManager date={dateString} isEdit={isEdit} setIsEdit={setIsEdit}/>
             </section>
             <Footer />
         </main>

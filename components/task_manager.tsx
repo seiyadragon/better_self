@@ -1,20 +1,26 @@
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import { useState, ChangeEvent, useEffect } from 'react'
-import { FaBan, FaBold, FaEdit, FaHighlighter, FaItalic, FaLink, FaList, FaSave } from "react-icons/fa";
+import { useState, ChangeEvent, useEffect, KeyboardEvent, useRef } from 'react'
+import { FaBan, FaBold, FaDotCircle, FaEdit, FaHighlighter, FaICursor, FaItalic, FaLink, FaList, FaListUl, FaSave } from "react-icons/fa";
 
 const TEXT_AREA_PLACEHOLDER1 = `Use this box to write about yesterday, your dreams, goals, plans for the day, whatever you want. It's about you!`
 
 type TaskManagerProps = {
     date: string,
+    isEdit: boolean,
+    setIsEdit: any
 }
 
-const TaskManager = ({date}: TaskManagerProps) => {
+const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
     const supabaseClient = useSupabaseClient()
     const user = useUser()
     const [data, setData] = useState(new Array<any>)
-    const [isEdit, setIsEdit] = useState(false)
 
     const [textArea1, setTextArea1] = useState("")
+
+    const [deleting, setDeleting] = useState(false)
+    const [shouldReset, setShouldReset] = useState(true)
+
+    const [selectionStart, setSelectionStart] = useState(textArea1.length)
 
     useEffect(() => {
         async function loadData() {
@@ -33,14 +39,29 @@ const TaskManager = ({date}: TaskManagerProps) => {
             if (!isEdit && textArea1 !== "")
                 setTextArea1("")
 
-            if (textArea1 === "" && newData.length !== 0)
-                setTextArea1(newData[0].text)
+            if (textArea1 === "" && newData.length !== 0) {
+                if (!deleting && shouldReset)
+                    setTextArea1(newData[0].text)
+            }
+
+            if (deleting)
+                setShouldReset(false)
+
+            if (textArea1 !== "" || !isEdit)
+                setShouldReset(true)
         }
 
         if (user) 
             loadData()
 
     }, [user, data, isEdit, date, supabaseClient])
+
+    const insertText = (text: string) => {
+        let textBeforeCursorPosition = textArea1.substring(0, selectionStart)
+        let textAfterCursorPosition = textArea1.substring(selectionStart, textArea1.length)
+
+        setTextArea1(textBeforeCursorPosition + text + textAfterCursorPosition)
+    }
 
     if (isEdit)
         return (
@@ -62,19 +83,31 @@ const TaskManager = ({date}: TaskManagerProps) => {
                             })
                     }}><FaSave /></button>
                     <button className="px-4 transition-transform hover:scale-150" onClick={() => setIsEdit(!isEdit)}><FaBan /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => setTextArea1(textArea1 + "<strong></strong>")}><FaBold /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => setTextArea1(textArea1 + "<i></i>")}><FaItalic /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => setTextArea1(textArea1 + "<mark></mark>")}><FaHighlighter /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => setTextArea1(textArea1 + "<a href=\"\"></a>")}><FaLink /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => setTextArea1(textArea1 + "<ul></ul>")}><FaList /></button>
-
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<strong></strong>")}><FaBold /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<i></i>")}><FaItalic /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<mark></mark>")}><FaHighlighter /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<a href=\"\"></a>")}><FaLink /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<ul></ul>")}><FaListUl /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<li></li>")}><FaDotCircle /></button>
                 </section>
-                <textarea 
+                <textarea
                     className="bg-green-600 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg h-96 placeholder-white"
                     style={{"height": "600px"}}
                     placeholder={TEXT_AREA_PLACEHOLDER1}
                     value={textArea1}
-                    onChange={async (event: ChangeEvent<HTMLTextAreaElement>) => setTextArea1(event.currentTarget.value)}
+                    onClick={(event) => setSelectionStart(event.currentTarget.selectionStart)}
+                    onChange={async (event: ChangeEvent<HTMLTextAreaElement>) => {
+                        setTextArea1(event.currentTarget.value)
+                        setSelectionStart(event.currentTarget.selectionStart)
+                    }}
+                    onKeyDown={(event: KeyboardEvent) => {
+                        if (event.key === "Backspace")
+                            setDeleting(true)
+                    }}
+                    onKeyUp={(event: KeyboardEvent) => {
+                        if (event.key === "Backspace")
+                            setDeleting(false)
+                    }}
                 />
             </section>
         )
