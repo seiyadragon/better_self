@@ -29,7 +29,7 @@ const TaskManager = ({date}: TaskManagerProps) => {
 
             setData(newData)
 
-            if (textArea1 === "")
+            if (textArea1 === "" && newData.length > 0)
                 setTextArea1(newData[0].text)
         }
 
