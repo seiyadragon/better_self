@@ -31,6 +31,9 @@ const TaskManager = ({date}: TaskManagerProps) => {
 
             if (textArea1 === "" && newData.length > 0)
                 setTextArea1(newData[0].text)
+
+            if (data?.length === 0)
+                setTextArea1("")
         }
 
         if (user) 
@@ -59,14 +62,15 @@ const TaskManager = ({date}: TaskManagerProps) => {
 
                             setIsEdit(!isEdit)
                             const {error} = await supabaseClient.from("UserRoutines").delete().eq("date", date)
-                            
-                            setTextArea1("")
 
                             await supabaseClient.from("UserRoutines").insert({
-                            userid: user !== null ? user.id : null,
-                            text: textArea1,
-                            date: date
-                        })}}
+                                userid: user !== null ? user.id : null,
+                                text: textArea1,
+                                date: date
+                            })
+
+                            setTextArea1("")
+                        }}
                     >
                         Save!
                     </button>
