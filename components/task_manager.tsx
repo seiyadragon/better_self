@@ -14,7 +14,6 @@ const TaskManager = ({date}: TaskManagerProps) => {
     const [isEdit, setIsEdit] = useState(false)
 
     const [textArea1, setTextArea1] = useState("")
-    const [textAreaUpdated, setTextAreaUpdated] = useState(false)
 
     useEffect(() => {
         async function loadData() {
@@ -29,15 +28,13 @@ const TaskManager = ({date}: TaskManagerProps) => {
                 })
 
             setData(newData)
+
+            if (textArea1 === "")
+                setTextArea1(newData[0].text)
         }
 
         if (user) 
             loadData()
-
-        if (textAreaUpdated && data.length > 0) {
-            setTextAreaUpdated(true)
-            setTextArea1(data[0].text)
-        }
 
     }, [user, data, isEdit, date, supabaseClient])
 
@@ -45,7 +42,7 @@ const TaskManager = ({date}: TaskManagerProps) => {
         return (
             <section className="flex flex-col py-8 text-white text-base">
                 <textarea 
-                    className="bg-teal-600 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg placeholder-white" 
+                    className="bg-green-600 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg h-96 placeholder-white" 
                     placeholder={TEXT_AREA_PLACEHOLDER1}
                     rows={16}
                     value={textArea1}
@@ -62,6 +59,8 @@ const TaskManager = ({date}: TaskManagerProps) => {
 
                             setIsEdit(!isEdit)
                             const {error} = await supabaseClient.from("UserRoutines").delete().eq("date", date)
+                            
+                            setTextArea1("")
 
                             await supabaseClient.from("UserRoutines").insert({
                             userid: user !== null ? user.id : null,
@@ -84,7 +83,7 @@ const TaskManager = ({date}: TaskManagerProps) => {
     else {
         return (
             <section className="flex flex-col py-8 text-white">
-                <p className="bg-teal-600 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg h-96 overflow-y-scroll">
+                <p className="bg-blue-600 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg h-96 overflow-y-scroll">
                     {data.length > 0 && data[0].text}
                     {data.length <= 0 && TEXT_AREA_PLACEHOLDER1}
                 </p>
