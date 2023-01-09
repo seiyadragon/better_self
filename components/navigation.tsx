@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { FaArrowAltCircleDown, FaBookOpen, FaClock, FaHome, FaQuestion, FaTasks } from 'react-icons/fa'
 
 const HEADER_CLASS: string = "bg-gray-900 opacity-90 w-full text-orange-400 text-2xl sticky top-0 pt-1 flex z-50"
-const BUTTON_CLASS: string = 'hover:scale-150 transition-transform mx-2 my-4'
+const BUTTON_CLASS: string = 'hover:scale-150 transition-transform px-2 my-4'
 
 const SMALL_NAVBAR_PIX_SIZE = 680
 

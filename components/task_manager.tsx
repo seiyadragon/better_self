@@ -1,5 +1,6 @@
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useState, ChangeEvent, useEffect } from 'react'
+import { FaBan, FaEdit, FaSave } from "react-icons/fa";
 
 const TEXT_AREA_PLACEHOLDER1 = `Use this box to write about yesterday, your dreams, goals, plans for the day, whatever you want. It's about you!`
 
@@ -28,12 +29,12 @@ const TaskManager = ({date}: TaskManagerProps) => {
                 })
 
             setData(newData)
-
-            if (textArea1 === "" && newData.length > 0)
-                setTextArea1(newData[0].text)
-
-            if (data?.length === 0)
+            
+            if (!isEdit && textArea1 !== "")
                 setTextArea1("")
+
+            if (textArea1 === "" && newData.length !== 0)
+                setTextArea1(newData[0].text)
         }
 
         if (user) 
@@ -44,17 +45,8 @@ const TaskManager = ({date}: TaskManagerProps) => {
     if (isEdit)
         return (
             <section className="flex flex-col py-8 text-white text-base">
-                <textarea 
-                    className="bg-green-600 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg h-96 placeholder-white" 
-                    placeholder={TEXT_AREA_PLACEHOLDER1}
-                    rows={16}
-                    value={textArea1}
-                    onChange={async (event: ChangeEvent<HTMLTextAreaElement>) => setTextArea1(event.currentTarget.value)}
-                />
-                <section className="self-center flex">
-                    <button 
-                        className="py-8 my-16 mx-4 w-32 md:w-96 md:mx-16 bg-green-600 hover:bg-green-500 shadow-lg text-2xl" 
-                        onClick={async () => {
+                <section className="bg-green-600 text-white text-xl py-4 mt-4 items-end">
+                    <button className="px-4 transition-transform hover:scale-150" onClick={async () => {
                             if (!textArea1) {
                                 alert("Please write something!")
                                 return
@@ -68,35 +60,29 @@ const TaskManager = ({date}: TaskManagerProps) => {
                                 text: textArea1,
                                 date: date
                             })
-
-                            setTextArea1("")
-                        }}
-                    >
-                        Save!
-                    </button>
-                    <button 
-                        className="py-8 my-16 w-32 mx-4 md:w-96 md:mx-16 bg-red-600 hover:bg-red-500 shadow-lg text-2xl" 
-                        onClick={async () => setIsEdit(!isEdit)}
-                    >
-                        Cancel!
-                    </button>
+                    }}><FaSave /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={async () => setIsEdit(!isEdit)}><FaBan /></button>
                 </section>
+                <textarea 
+                    className="bg-green-600 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg h-96 placeholder-white" 
+                    placeholder={TEXT_AREA_PLACEHOLDER1}
+                    value={textArea1}
+                    onChange={async (event: ChangeEvent<HTMLTextAreaElement>) => setTextArea1(event.currentTarget.value)}
+                />
             </section>
         )
 
     else {
         return (
             <section className="flex flex-col py-8 text-white">
-                <p className="bg-blue-600 outline-none text-white resize-none my-4 px-4 py-4 shadow-lg h-96 overflow-y-scroll">
-                    {data.length > 0 && data[0].text}
-                    {data.length <= 0 && TEXT_AREA_PLACEHOLDER1}
-                </p>
-                <button 
-                    className="py-8 my-16 w-64 mx-4 md:w-96 md:mx-16 bg-green-600 hover:bg-green-500 shadow-lg text-2xl self-center text-center" 
-                    onClick={() => setIsEdit(!isEdit)}
+                <section className="bg-blue-600 text-white text-xl py-4 mt-4 items-end">
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => setIsEdit(!isEdit)}><FaEdit /></button>
+                </section>
+                <p className="bg-blue-600 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg h-96"
+                    dangerouslySetInnerHTML={{__html: `${data.length > 0 ? data[0].text : TEXT_AREA_PLACEHOLDER1}`}}
                 >
-                    Edit!
-                </button>
+                    
+                </p>
             </section>
         )
     }
