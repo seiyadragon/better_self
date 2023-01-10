@@ -33,7 +33,7 @@ const Blog = ({blogID}: BlogProps) => {
     }, [data, supabaseClient, blogID])
 
     return (
-        <main className="bg-gray-800">
+        <main className="bg-zinc-900">
             <HeadManager 
                 title="View all the blogs"
                 keywords={data.length > 0 ? data[0].keywords : "Not found"}
@@ -49,10 +49,10 @@ const Blog = ({blogID}: BlogProps) => {
                     {name: data.length > 0 ? data[0].name : "Not found", href:"/blogs/" + blogID}
                 ]
             } />
-            <ul className="md:mx-24 lg:mx-72 min-h-screen text-white text-center text-2xl py-4 pb-16">
+            <ul className="md:mx-12 lg:mx-24 mx-6 min-h-screen text-white text-center text-2xl py-4 pb-16">
                 {data.map((blog) => {
                     return (
-                        <section className="py-12 bg-gray-700 my-8" key={blog}>
+                        <section className="py-12 bg-blue-900 my-8" key={blog}>
                             <p className="py-4 px-4 text-orange-400">
                                 {blog.name}
                             </p>

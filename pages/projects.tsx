@@ -31,7 +31,7 @@ const Projects = () => {
         return <LoginManager />
 
     return (
-        <main className="bg-gray-800">
+        <main className="bg-zinc-900">
             <HeadManager
                 title="View your habits"
                 keywords="Journal, Self improvement, Learn new skills, Better yourself, Improve, Self++, Achieve Success, Achieve your goals"

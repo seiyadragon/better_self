@@ -1,6 +1,6 @@
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useState, ChangeEvent, useEffect, KeyboardEvent, useRef } from 'react'
-import { FaBan, FaBold, FaDotCircle, FaEdit, FaHighlighter, FaICursor, FaItalic, FaLink, FaList, FaListUl, FaSave } from "react-icons/fa";
+import { FaBan, FaBold, FaDotCircle, FaEdit, FaHighlighter, FaICursor, FaImage, FaItalic, FaLink, FaList, FaListUl, FaSave } from "react-icons/fa";
 
 const TEXT_AREA_PLACEHOLDER1 = `Use this box to write about yesterday, your dreams, goals, plans for the day, whatever you want. It's about you!`
 
@@ -21,6 +21,8 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
     const [shouldReset, setShouldReset] = useState(true)
 
     const [selectionStart, setSelectionStart] = useState(textArea1.length)
+
+    const inputImageRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
         async function loadData() {
@@ -66,7 +68,7 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
     if (isEdit)
         return (
             <section className="flex flex-col py-8 text-white text-base">
-                <section className="bg-green-600 text-white text-xl py-4 mt-4 items-end">
+                <section className="bg-emerald-900 text-white text-xl py-4 mt-4 items-end">
                     <button className="px-4 transition-transform hover:scale-150" onClick={async () => {
                             if (!textArea1) {
                                 alert("Please write something!")
@@ -89,9 +91,27 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                     <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<a href=\"\"></a>")}><FaLink /></button>
                     <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<ul></ul>")}><FaListUl /></button>
                     <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<li></li>")}><FaDotCircle /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => {
+                        inputImageRef.current !== null ? inputImageRef.current.click() : {}
+                    }}><FaImage /></button>
+                    <input
+                        ref={inputImageRef}
+                        type="file" 
+                        accept="image/*"
+                        placeholder=""
+                        style={{
+                            "display": "none"
+                        }}
+                        onChange={(event) => {
+                            if (event.target.files !== null) {
+                                const file = event.target.files[0]
+                                insertText(file.name)
+                            }
+                        }}
+                    />
                 </section>
                 <textarea
-                    className="bg-green-600 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg h-96 placeholder-white"
+                    className="bg-emerald-900 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg h-96 placeholder-white"
                     style={{"height": "600px"}}
                     placeholder={TEXT_AREA_PLACEHOLDER1}
                     value={textArea1}
@@ -115,10 +135,10 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
     else {
         return (
             <section className="flex flex-col py-8 text-white">
-                <section className="bg-blue-600 text-white text-xl py-4 mt-4 items-end">
+                <section className="bg-blue-900 text-white text-xl py-4 mt-4 items-end">
                     <button className="px-4 transition-transform hover:scale-150" onClick={() => setIsEdit(!isEdit)}><FaEdit /></button>
                 </section>
-                <p className="bg-blue-600 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg overflow-y-scroll"
+                <p className="bg-blue-900 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg overflow-y-scroll"
                     style={{"height": "600px"}}
                     dangerouslySetInnerHTML={{__html: `${data.length > 0 ? data[0].text : TEXT_AREA_PLACEHOLDER1}
                     <style>

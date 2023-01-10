@@ -62,7 +62,7 @@ const Routines = ({date, dateString}: RoutinesProps) => {
         return <LoginManager />
 
     return (
-        <main className="bg-gray-800">
+        <main className="bg-zinc-900">
             <HeadManager 
                 title="View your diary"
                 keywords="Journal, Self improvement, Learn new skills, Better yourself, Improve, Self++, Achieve Success, Achieve your goals"
@@ -74,7 +74,7 @@ const Routines = ({date, dateString}: RoutinesProps) => {
             <Navigation />
             <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}, {name: "Diary", href:"/diary"}]} />
             <section className="mx-4 md:mx-12 lg:mx-24 min-h-screen">
-                <section className="flex flex-row justify-center gap-12 mt-8 shadow-lg py-8 bg-gray-900">
+                <section className="flex flex-row justify-center gap-12 mt-8 shadow-lg py-8 bg-blue-900">
                     <Link 
                         className="text-orange-400 text-2xl hover:scale-150 transition-transform"
                         href={"/diary?date=" + prevDate.toDateString().replaceAll(" ", "_")}

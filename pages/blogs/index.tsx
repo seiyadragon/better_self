@@ -20,7 +20,7 @@ const Blogs = () => {
     }, [data, supabaseClient])
 
     return (
-        <main className="bg-gray-800">
+        <main className="bg-zinc-900">
             <HeadManager 
                 title="View all the blogs"
                 keywords="Journal, Self improvement, Learn new skills, Better yourself, Improve, Self++, Achieve Success, Achieve your goals, Learn"
@@ -34,7 +34,7 @@ const Blogs = () => {
                 {data.map((blog) => {
                     return (
                         <Link href={`/blogs/${blog.id}`} key={blog}>
-                            <p className="py-4 px-4 shadow-lg bg-blue-600 hover:scale-105 transition-transform">
+                            <p className="py-4 px-4 shadow-lg bg-blue-900 hover:scale-105 transition-transform">
                                 {blog.name}
                             </p>
                         </Link>

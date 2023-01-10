@@ -13,11 +13,11 @@ const Project = ({project}: ProjectProps) => {
 
     return (
         <section className="w-full lg:w-96">
-            <section className="md:w-96 w-full text-lg shadow-lg text-white bg-blue-600 flex">
-                <button className={`hover:bg-blue-500 w-full px-4 py-4 shadow-lg text-left ${project.completed ? "line-through" : ""}`} onClick={() => setOpen(!isOpen)}>
+            <section className="md:w-96 w-full text-lg shadow-lg text-white bg-blue-900 flex">
+                <button className={`hover:bg-blue-800 w-full px-4 py-4 shadow-lg text-left ${project.completed ? "line-through" : ""}`} onClick={() => setOpen(!isOpen)}>
                     {(project.name).toString().toUpperCase()}
                 </button>
-                <button className="hover:bg-blue-500 px-4 py-4 shadow-lg text-orange-400" onClick={
+                <button className="hover:bg-blue-800 px-4 py-4 shadow-lg text-orange-400" onClick={
                     async () => {
                         await supabaseClient.from("UserProjects").delete().eq("id", project.id)
                     }
@@ -27,37 +27,51 @@ const Project = ({project}: ProjectProps) => {
             </section>
             {isOpen && project.tasks !== null && project.tasks.map((task: any) => {
                 return (
-                    <section key={task.name} className={`text-white bg-blue-600 shadow-lg md:w-96 w-full px-4 py-4 flex gap-4 ${task.completed ? "line-through" : ""}`}>
-                        <input type="checkbox" checked={task.completed} onChange={async () => {
-                            task.completed = !task.completed
-                            
-                            let undoneTasks = false
-                            project.tasks.map((task2: any) => {
-                                if (!task2.completed)
-                                    undoneTasks = true
-                            })
-
-                            if (!undoneTasks)
-                                project.completed = true
-                            else
-                                project.completed = false
-
-                            await supabaseClient.from("UserProjects").update(project).eq("id", project.id)
-                        }}/>
-                        <button className="hover:text-orange-400" onClick={
-                            async (event) => {
-                                let newTasks: Array<any> = []
-
+                    <section key={task.name} className={`text-white bg-blue-900 shadow-lg md:w-96 w-full px-4 py-4 flex gap-4 ${task.completed ? "line-through" : ""}`}>
+                        <input type="checkbox" checked={task.completed} 
+                            style={{
+                                "display": "grid",
+                                "gridTemplateColumns": "1em auto",
+                                "gap": "0.5em"
+                            }}
+                            onChange={async () => {
+                                task.completed = !task.completed
+                                
+                                let undoneTasks = false
                                 project.tasks.map((task2: any) => {
-                                    if (task.name !== task2.name)
-                                        newTasks.push(task2)
+                                    if (!task2.completed)
+                                        undoneTasks = true
                                 })
 
-                                project.tasks = newTasks
+                                if (!undoneTasks)
+                                    project.completed = true
+                                else
+                                    project.completed = false
 
                                 await supabaseClient.from("UserProjects").update(project).eq("id", project.id)
                             }
-                        }>
+                        }/>
+                        <button className="hover:text-orange-400 text-2xl"
+                            style={{
+                                "display": "grid",
+                                "gridTemplateColumns": "1em auto",
+                                "gap": "0.5em",
+                            }}
+                            onClick={
+                                async (event) => {
+                                    let newTasks: Array<any> = []
+
+                                    project.tasks.map((task2: any) => {
+                                        if (task.name !== task2.name)
+                                            newTasks.push(task2)
+                                    })
+
+                                    project.tasks = newTasks
+
+                                    await supabaseClient.from("UserProjects").update(project).eq("id", project.id)
+                                }
+                            }
+                        >
                             <FaBan />
                         </button>
                         <p>{task.name}</p>
@@ -65,7 +79,7 @@ const Project = ({project}: ProjectProps) => {
                 )
             })}
             {isOpen &&
-                <section className="text-black bg-blue-600 shadow-lg md:w-96 w-full px-4 py-4 text-lg">
+                <section className="text-black bg-blue-900 shadow-lg md:w-96 w-full px-4 py-4 text-lg">
                     <section className="flex bg-white text-black">
                         <input 
                             className="w-full bg-white outline-none px-2 text-lg"
