@@ -1,5 +1,3 @@
-import { useUser } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/router"
 import Navigation from "./navigation";
 import Link from "next/link";
 import Footer from "./footer";

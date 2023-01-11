@@ -7,6 +7,8 @@ import {Quote} from "../components/quote_section";
 import HeadManager from "../components/head_manager";
 import BreadCrumbs from "../components/breadcrumbs";
 import { useEffect, useState } from "react";
+import LoginManager from "../components/login_manager";
+import LoginCall from "../components/login_call";
 
 const SMALL_NAVBAR_PIX_SIZE = 680
 
@@ -61,7 +63,7 @@ const Index = ({quote}: IndexProps) => {
     }, [isWide])
 
     return (
-        <main className="bg-gray-800" style={{
+        <main className="bg-zinc-900" style={{
             "backgroundImage": isWide ? 
                 "url(/home_background.jpg)" : 
                 "url(/home_background_mobile.jpg)", 
@@ -80,9 +82,12 @@ const Index = ({quote}: IndexProps) => {
             <section className="backdrop-blur-md">
                 <Navigation />
                 <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}]} />
-                <section className="mx-4 md:mx-12 lg:mx-24 text-center min-h-screen">
+                <section className="mx-4 md:mx-12 lg:mx-24 text-center">
                     <Logo />
                     <QuoteSection quote={quote} />
+                </section>
+                <section className="py-16">
+                    <LoginCall />
                 </section>
                 <Footer />
             </section>
