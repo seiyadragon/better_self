@@ -56,9 +56,6 @@ export const Navigation = () => {
                     <Link href={"/projects"} className={BUTTON_CLASS}>
                         <FaTasks />
                     </Link>
-                    <Link href={"/blogs"} className={BUTTON_CLASS}>
-                        <FaQuestion />
-                    </Link>
                 </section>
             }
             {!isWide &&
