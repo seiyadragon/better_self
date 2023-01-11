@@ -16,8 +16,6 @@ const HeadManager = ({title, keywords, description}: HeadManagerProps) => {
             <title>{title}</title>
             <meta name="description" content={description}/>
             <meta name="keywords" content={keywords}/>
-
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu"></link>
         </Head>
     )
 }; export default HeadManager

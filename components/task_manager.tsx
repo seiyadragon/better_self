@@ -1,6 +1,8 @@
+import { logger } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useState, ChangeEvent, useEffect, KeyboardEvent, useRef } from 'react'
 import { FaBan, FaBold, FaDotCircle, FaEdit, FaHighlighter, FaICursor, FaImage, FaItalic, FaLink, FaList, FaListUl, FaSave } from "react-icons/fa";
+import {createWorker} from "tesseract.js"
 
 const TEXT_AREA_PLACEHOLDER1 = `Use this box to write about yesterday, your dreams, goals, plans for the day, whatever you want. It's about you!`
 
@@ -20,7 +22,8 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
     const [deleting, setDeleting] = useState(false)
     const [shouldReset, setShouldReset] = useState(true)
 
-    const [selectionStart, setSelectionStart] = useState(textArea1.length)
+    const [selectionStart, setSelectionStart] = useState(0)
+    const [selectionEnd, setSelectionEnd] = useState(textArea1.length)
 
     const inputImageRef = useRef<HTMLInputElement>(null)
 
@@ -46,11 +49,11 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                     setTextArea1(newData[0].text)
             }
 
-            if (deleting)
-                setShouldReset(false)
-
             if (textArea1 !== "" || !isEdit)
                 setShouldReset(true)
+                
+            if (deleting)
+                setShouldReset(false)
         }
 
         if (user) 
@@ -58,11 +61,12 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
 
     }, [user, data, isEdit, date, supabaseClient])
 
-    const insertText = (text: string) => {
-        let textBeforeCursorPosition = textArea1.substring(0, selectionStart)
-        let textAfterCursorPosition = textArea1.substring(selectionStart, textArea1.length)
+    const insertText = (tag1: string, tag2: string) => {
+        let textBeforeSelection = textArea1.substring(0, selectionStart)
+        let textSelected = textArea1.substring(selectionStart, selectionEnd)
+        let textAfterSelection= textArea1.substring(selectionEnd, textArea1.length)
 
-        setTextArea1(textBeforeCursorPosition + text + textAfterCursorPosition)
+        setTextArea1(textBeforeSelection + tag1 + textSelected + tag2 + textAfterSelection)
     }
 
     if (isEdit)
@@ -85,13 +89,14 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                             })
                     }}><FaSave /></button>
                     <button className="px-4 transition-transform hover:scale-150" onClick={() => setIsEdit(!isEdit)}><FaBan /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<strong></strong>")}><FaBold /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<i></i>")}><FaItalic /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<mark></mark>")}><FaHighlighter /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<a href=\"\"></a>")}><FaLink /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<ul></ul>")}><FaListUl /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<li></li>")}><FaDotCircle /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<strong>", "</strong>")}><FaBold /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<i>", "</i>")}><FaItalic /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<mark>", "</mark>")}><FaHighlighter /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<a href=\"\">", "</a>")}><FaLink /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<ul>", "</ul>")}><FaListUl /></button>
+                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<li>", "</li>")}><FaDotCircle /></button>
                     <button className="px-4 transition-transform hover:scale-150" onClick={() => {
+                        inputImageRef.current !== null ? inputImageRef.current.value = "" : {}
                         inputImageRef.current !== null ? inputImageRef.current.click() : {}
                     }}><FaImage /></button>
                     <input
@@ -105,7 +110,30 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                         onChange={(event) => {
                             if (event.target.files !== null) {
                                 const file = event.target.files[0]
-                                insertText(file.name)
+
+                                console.log(event.target.files)
+                                
+                                let fileReader = new FileReader()
+
+                                fileReader.onload = async (event) => {
+                                    let dataURL: string | undefined = event.target?.result?.toString()
+                                    
+                                    const worker = await createWorker({
+                                        logger: m => console.log(m)
+                                    })
+
+                                    await worker.loadLanguage("eng")
+                                    await worker.initialize("eng")
+
+                                    const {data: {text}} = await worker.recognize(dataURL !== undefined ? dataURL : "")
+
+                                    await worker.terminate()
+
+                                    if (text !== null && text !== "")
+                                        insertText(text, "")
+                                }
+
+                                fileReader.readAsDataURL(file)
                             }
                         }}
                     />
@@ -115,7 +143,14 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                     style={{"height": "600px"}}
                     placeholder={TEXT_AREA_PLACEHOLDER1}
                     value={textArea1}
-                    onClick={(event) => setSelectionStart(event.currentTarget.selectionStart)}
+                    onMouseDown={(event) => {
+                        setSelectionStart(event.currentTarget.selectionStart)
+                        setSelectionEnd(event.currentTarget.selectionEnd)
+                    }}
+                    onMouseMove={(event) => {
+                        setSelectionStart(event.currentTarget.selectionStart)
+                        setSelectionEnd(event.currentTarget.selectionEnd)
+                    }}
                     onChange={async (event: ChangeEvent<HTMLTextAreaElement>) => {
                         setTextArea1(event.currentTarget.value)
                         setSelectionStart(event.currentTarget.selectionStart)
