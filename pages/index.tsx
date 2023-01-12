@@ -43,6 +43,16 @@ type IndexProps = {
 
 const Index = ({quote}: IndexProps) => {
     let [isWide, setWide] = useState(true)
+    
+    if (typeof window !== "undefined") {
+        window.addEventListener("resize", (event) => {
+            if (window.innerWidth <= SMALL_NAVBAR_PIX_SIZE) {
+                setWide(false)
+            } else {
+                setWide(true)
+            }
+        })
+    }
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -51,14 +61,6 @@ const Index = ({quote}: IndexProps) => {
             } else {
                 setWide(true)
             }
-
-            window.addEventListener("resize", (event) => {
-                if (window.innerWidth <= SMALL_NAVBAR_PIX_SIZE) {
-                    setWide(false)
-                } else {
-                    setWide(true)
-                }
-            })
         }
     }, [isWide])
 
