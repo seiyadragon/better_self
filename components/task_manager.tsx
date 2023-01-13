@@ -3,6 +3,7 @@ import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { useState, ChangeEvent, useEffect, KeyboardEvent, useRef } from 'react'
 import { FaBan, FaBold, FaDotCircle, FaEdit, FaHighlighter, FaICursor, FaImage, FaItalic, FaLink, FaList, FaListUl, FaSave } from "react-icons/fa";
 import {createWorker} from "tesseract.js"
+import TooltipButton from "./tooltip_button";
 
 const TEXT_AREA_PLACEHOLDER1 = `Use this box to write about yesterday, your dreams, goals, plans for the day, whatever you want. It's about you!`
 
@@ -72,8 +73,8 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
     if (isEdit)
         return (
             <section className="flex flex-col py-8 text-white text-base">
-                <section className="bg-emerald-900 text-white text-xl py-4 mt-4 items-end">
-                    <button className="px-4 transition-transform hover:scale-150" onClick={async () => {
+                <section className="bg-emerald-900 text-white text-xl py-4 mt-4 flex">
+                    <TooltipButton icon={<FaSave />} tooltip="Save" onClick={async () => {
                             if (!textArea1) {
                                 alert("Please write something!")
                                 return
@@ -87,8 +88,8 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                                 text: textArea1,
                                 date: date
                             })
-                    }}><FaSave /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => setIsEdit(!isEdit)}><FaBan /></button>
+                    }} />
+                    <TooltipButton icon={<FaBan />} tooltip="Cancel" onClick={() => setIsEdit(!isEdit)}/>
                     <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<strong>", "</strong>")}><FaBold /></button>
                     <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<i>", "</i>")}><FaItalic /></button>
                     <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<mark>", "</mark>")}><FaHighlighter /></button>

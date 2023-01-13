@@ -1,25 +1,25 @@
-import { useState } from "react";
+import { useState, MouseEventHandler } from "react";
 
 type TooltipButtonProps = {
     icon: any,
     tooltip: string,
     classOverride?: string,
-    onClick: any
+    onClick: MouseEventHandler
 }
 
 const TooltipButton = ({icon, tooltip, classOverride, onClick}: TooltipButtonProps) => {
     let [hoverig, setHovering] = useState(false)
 
     return (
-        <section className={classOverride === undefined ? "hover:scale-150 transition-transform px-2 my-4" : classOverride}>
-            <button 
+        <section className={classOverride === undefined ? "hover:scale-150 transition-transform px-4 my-4" : classOverride}>
+            <button
                 onMouseOver={() => {
                     setHovering(true)
                 }}
                 onMouseLeave={() => {
                     setHovering(false)
                 }}
-                onClick={() => onClick}
+                onClick={onClick}
             >
                 {icon}
             </button>

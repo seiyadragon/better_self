@@ -1,7 +1,7 @@
 import { useUser } from '@supabase/auth-helpers-react';
 import Image from 'next/image'
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { FaArrowAltCircleDown, FaBars, FaBookOpen, FaClock, FaHome, FaQuestion, FaTasks, FaUserCircle } from 'react-icons/fa'
 import NavButton from './nav_button';
 import TooltipButton from './tooltip_button';
@@ -14,7 +14,6 @@ export const Navigation = () => {
 
     let [isWide, setWide] = useState(true)
     let [isMenuOpen, setMenuOpen] = useState(false)
-    let [isNavMenuHovering, setNavMenuHovering] = useState(false)
 
     if (typeof window !== "undefined") {
         window.addEventListener("resize", (event) => {
@@ -23,13 +22,6 @@ export const Navigation = () => {
             } else {
                 setWide(true)
             }
-        })
-
-        window.addEventListener("click", () => {
-            if (!isWide && isMenuOpen && !isNavMenuHovering)
-                setMenuOpen(!isMenuOpen)
-            else if (!isWide && !isMenuOpen && isNavMenuHovering)
-                setMenuOpen(true)
         })
     }
 
@@ -60,9 +52,7 @@ export const Navigation = () => {
                 </section>
             }
             {!isWide &&
-                <section className="hover:scale-150 transition-transform px-2 my-4">
-                    <TooltipButton icon={<FaBars />} tooltip="Menu"  classOverride="" onClick={() => setMenuOpen(!isMenuOpen)} />
-                </section>
+                <TooltipButton icon={<FaBars />} tooltip="Menu" onClick={() => setMenuOpen(!isMenuOpen)}/>
             }
             <section className='w-full flex justify-end'>
                 <NavButton icon={<FaUserCircle />} tooltip='Account' href={user ? "/account" : "/login"} />
