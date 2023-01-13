@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { FaArrowAltCircleDown, FaBars, FaBookOpen, FaClock, FaHome, FaQuestion, FaTasks, FaUserCircle } from 'react-icons/fa'
 import NavButton from './nav_button';
+import TooltipButton from './tooltip_button';
 
 const SMALL_NAVBAR_PIX_SIZE = 680
 
@@ -60,21 +61,7 @@ export const Navigation = () => {
             }
             {!isWide &&
                 <section className="hover:scale-150 transition-transform px-2 my-4">
-                    <button onClick={() => setMenuOpen(!isMenuOpen)}
-                        onMouseOver={() => {
-                            setNavMenuHovering(true)
-                        }}
-                        onMouseLeave={() => {
-                            setNavMenuHovering(false)
-                        }}
-                    >
-                        <FaBars />
-                    </button>
-                    {isNavMenuHovering &&
-                        <p className="absolute text-white text-xs bg-orange-400 py-2 px-4 my-2 rounded-full opacity-80 right-5">
-                            {"Menu"}
-                        </p>
-                    }
+                    <TooltipButton icon={<FaBars />} tooltip="Menu"  classOverride="" onClick={() => setMenuOpen(!isMenuOpen)} />
                 </section>
             }
             <section className='w-full flex justify-end'>

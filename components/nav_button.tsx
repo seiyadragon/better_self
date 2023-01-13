@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
 
-
 type NavButtonProps = {
     icon: any,
     tooltip: string,
@@ -25,7 +24,7 @@ const NavButton = ({icon, tooltip, href, classOverride}: NavButtonProps) => {
                 {icon}
             </Link>
             {hoverig &&
-                <p className="absolute text-white text-xs bg-orange-400 py-2 px-4 my-2 rounded-full opacity-80 right-3">
+                <p className="absolute text-white text-xs bg-zinc-900 py-2 px-4 my-2 rounded-full opacity-80 right-3">
                     {tooltip}
                 </p>
             }
