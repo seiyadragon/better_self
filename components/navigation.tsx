@@ -45,17 +45,17 @@ export const Navigation = () => {
                         'absolute top-16 left-10 flex-col bg-zinc-900 px-16' : 
                         '')}
                 >
-                    <NavButton icon={<FaHome />} tooltip='Home' href='/' />
-                    <NavButton icon={<FaBookOpen />} tooltip='Diary' href={"/diary?date=" + date.toDateString().replaceAll(" ", "_")} />
-                    <NavButton icon={<FaClock />} tooltip='Habits' href='/habits'/>
-                    <NavButton icon={<FaTasks />} tooltip='Projects' href='/projects'/>
+                    <NavButton icon={<FaHome />} tooltip='Home' toolTipColor="bg-zinc-900" href='/' />
+                    <NavButton icon={<FaBookOpen />} tooltip='Diary' toolTipColor="bg-zinc-900" href={"/diary?date=" + date.toDateString().replaceAll(" ", "_")} />
+                    <NavButton icon={<FaClock />} tooltip='Habits' toolTipColor="bg-zinc-900" href='/habits'/>
+                    <NavButton icon={<FaTasks />} tooltip='Projects' toolTipColor="bg-zinc-900" href='/projects'/>
                 </section>
             }
             {!isWide &&
-                <TooltipButton icon={<FaBars />} tooltip="Menu" onClick={() => setMenuOpen(!isMenuOpen)}/>
+                <TooltipButton icon={<FaBars />} tooltip="Menu" toolTipColor="bg-zinc-900" onClick={() => setMenuOpen(!isMenuOpen)}/>
             }
             <section className='w-full flex justify-end'>
-                <NavButton icon={<FaUserCircle />} tooltip='Account' href={user ? "/account" : "/login"} />
+                <NavButton icon={<FaUserCircle />} tooltip='Account' toolTipColor="bg-zinc-900" href={user ? "/account" : "/login"} />
             </section>
         </header>
     )
