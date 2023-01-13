@@ -90,16 +90,16 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                             })
                     }} />
                     <TooltipButton icon={<FaBan />} tooltip="Cancel" onClick={() => setIsEdit(!isEdit)}/>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<strong>", "</strong>")}><FaBold /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<i>", "</i>")}><FaItalic /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<mark>", "</mark>")}><FaHighlighter /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<a href=\"\">", "</a>")}><FaLink /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<ul>", "</ul>")}><FaListUl /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => insertText("<li>", "</li>")}><FaDotCircle /></button>
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => {
+                    <TooltipButton icon={<FaBold />} tooltip="Bold" onClick={() => insertText("<strong>", "</strong>")}/>
+                    <TooltipButton icon={<FaItalic /> } tooltip="Italic" onClick={() => insertText("<i>", "</i>")}/>                
+                    <TooltipButton icon={<FaHighlighter />} tooltip="Highlight" onClick={() => insertText("<mark>", "</mark>")}/>
+                    <TooltipButton icon={<FaLink />} tooltip="Link" onClick={() => insertText("<a href=\"\">", "</a>")}/>
+                    <TooltipButton icon={<FaListUl />} tooltip="List" onClick={() => insertText("<ul>", "</ul>")}/>
+                    <TooltipButton icon={<FaDotCircle />} tooltip="List Item" onClick={() => insertText("<li>", "</li>")}/>
+                    <TooltipButton icon={<FaImage />} tooltip="Text from Image" onClick={() => {
                         inputImageRef.current !== null ? inputImageRef.current.value = "" : {}
                         inputImageRef.current !== null ? inputImageRef.current.click() : {}
-                    }}><FaImage /></button>
+                    }}/>
                     <input
                         ref={inputImageRef}
                         type="file" 
@@ -171,8 +171,8 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
     else {
         return (
             <section className="flex flex-col py-8 text-white">
-                <section className="bg-blue-900 text-white text-xl py-4 mt-4 items-end">
-                    <button className="px-4 transition-transform hover:scale-150" onClick={() => setIsEdit(!isEdit)}><FaEdit /></button>
+                <section className="bg-blue-900 text-white text-xl py-4 mt-4 flex">
+                    <TooltipButton icon={<FaEdit />} tooltip="Edit" onClick={() => setIsEdit(!isEdit)}/>
                 </section>
                 <p className="bg-blue-900 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg overflow-y-scroll"
                     style={{"height": "600px"}}
