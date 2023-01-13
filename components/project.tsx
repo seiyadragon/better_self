@@ -1,6 +1,7 @@
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useState } from "react";
 import { FaBan, FaCheck, FaPlus, FaPlusSquare } from "react-icons/fa";
+import TooltipButton from "./tooltip_button";
 
 type ProjectProps = {
     project: any
@@ -17,13 +18,11 @@ const Project = ({project}: ProjectProps) => {
                 <button className={`hover:bg-blue-800 w-full px-4 py-4 shadow-lg text-left ${project.completed ? "line-through" : ""}`} onClick={() => setOpen(!isOpen)}>
                     {(project.name).toString().toUpperCase()}
                 </button>
-                <button className="hover:bg-blue-800 px-4 py-4 shadow-lg text-orange-400" onClick={
+                <TooltipButton icon={<FaBan />} tooltip="Remove" toolTipColor="bg-blue-900" onClick={
                     async () => {
                         await supabaseClient.from("UserProjects").delete().eq("id", project.id)
                     }
-                }>
-                    <FaBan />
-                </button>
+                }/>
             </section>
             {isOpen && project.tasks !== null && project.tasks.map((task: any) => {
                 return (
@@ -31,8 +30,7 @@ const Project = ({project}: ProjectProps) => {
                         <input type="checkbox" checked={task.completed} 
                             style={{
                                 "display": "grid",
-                                "gridTemplateColumns": "1em auto",
-                                "gap": "0.5em"
+                                "gridTemplateColumns": "3em",
                             }}
                             onChange={async () => {
                                 task.completed = !task.completed
@@ -51,12 +49,7 @@ const Project = ({project}: ProjectProps) => {
                                 await supabaseClient.from("UserProjects").update(project).eq("id", project.id)
                             }
                         }/>
-                        <button className="hover:text-orange-400 text-2xl"
-                            style={{
-                                "display": "grid",
-                                "gridTemplateColumns": "1em auto",
-                                "gap": "0.5em",
-                            }}
+                        <TooltipButton icon={<FaBan />} tooltip="Remove" toolTipColor="bg-blue-900" classOverride="hover:scale-150 transition-transform px-4 my-4 text-5xl"
                             onClick={
                                 async (event) => {
                                     let newTasks: Array<any> = []
@@ -71,10 +64,8 @@ const Project = ({project}: ProjectProps) => {
                                     await supabaseClient.from("UserProjects").update(project).eq("id", project.id)
                                 }
                             }
-                        >
-                            <FaBan />
-                        </button>
-                        <p>{task.name}</p>
+                        />
+                        <p className="translate-y-7">{task.name}</p>
                     </section>
                 )
             })}

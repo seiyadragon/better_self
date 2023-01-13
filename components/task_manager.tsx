@@ -74,7 +74,7 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
         return (
             <section className="flex flex-col py-8 text-white text-base">
                 <section className="bg-emerald-900 text-white text-xl py-4 mt-4 flex flex-wrap">
-                    <TooltipButton icon={<FaSave />} tooltip="Save" onClick={async () => {
+                    <TooltipButton icon={<FaSave />} tooltip="Save" toolTipColor="bg-emerald-900" onClick={async () => {
                             if (!textArea1) {
                                 alert("Please write something!")
                                 return
@@ -89,14 +89,14 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                                 date: date
                             })
                     }} />
-                    <TooltipButton icon={<FaBan />} tooltip="Cancel" onClick={() => setIsEdit(!isEdit)}/>
-                    <TooltipButton icon={<FaBold />} tooltip="Bold" onClick={() => insertText("<strong>", "</strong>")}/>
-                    <TooltipButton icon={<FaItalic /> } tooltip="Italic" onClick={() => insertText("<i>", "</i>")}/>                
-                    <TooltipButton icon={<FaHighlighter />} tooltip="Highlight" onClick={() => insertText("<mark>", "</mark>")}/>
-                    <TooltipButton icon={<FaLink />} tooltip="Link" onClick={() => insertText("<a href=\"\">", "</a>")}/>
-                    <TooltipButton icon={<FaListUl />} tooltip="List" onClick={() => insertText("<ul>", "</ul>")}/>
-                    <TooltipButton icon={<FaDotCircle />} tooltip="List Item" onClick={() => insertText("<li>", "</li>")}/>
-                    <TooltipButton icon={<FaImage />} tooltip="Text from Image" onClick={() => {
+                    <TooltipButton icon={<FaBan />} tooltip="Cancel" toolTipColor="bg-emerald-900" onClick={() => setIsEdit(!isEdit)}/>
+                    <TooltipButton icon={<FaBold />} tooltip="Bold" toolTipColor="bg-emerald-900" onClick={() => insertText("<strong>", "</strong>")}/>
+                    <TooltipButton icon={<FaItalic /> } tooltip="Italic" toolTipColor="bg-emerald-900" onClick={() => insertText("<i>", "</i>")}/>                
+                    <TooltipButton icon={<FaHighlighter />} tooltip="Highlight" toolTipColor="bg-emerald-900" onClick={() => insertText("<mark>", "</mark>")}/>
+                    <TooltipButton icon={<FaLink />} tooltip="Link" toolTipColor="bg-emerald-900" onClick={() => insertText("<a href=\"\">", "</a>")}/>
+                    <TooltipButton icon={<FaListUl />} tooltip="List" toolTipColor="bg-emerald-900" onClick={() => insertText("<ul>", "</ul>")}/>
+                    <TooltipButton icon={<FaDotCircle />} tooltip="ListItem" toolTipColor="bg-emerald-900" onClick={() => insertText("<li>", "</li>")}/>
+                    <TooltipButton icon={<FaImage />} tooltip="TextFromImage" toolTipColor="bg-emerald-900" onClick={() => {
                         inputImageRef.current !== null ? inputImageRef.current.value = "" : {}
                         inputImageRef.current !== null ? inputImageRef.current.click() : {}
                     }}/>
@@ -172,7 +172,7 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
         return (
             <section className="flex flex-col py-8 text-white">
                 <section className="bg-blue-900 text-white text-xl py-4 mt-4 flex">
-                    <TooltipButton icon={<FaEdit />} tooltip="Edit" onClick={() => setIsEdit(!isEdit)}/>
+                    <TooltipButton icon={<FaEdit />} tooltip="Edit" toolTipColor="bg-blue-900" onClick={() => setIsEdit(!isEdit)}/>
                 </section>
                 <p className="bg-blue-900 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg overflow-y-scroll"
                     style={{"height": "600px"}}

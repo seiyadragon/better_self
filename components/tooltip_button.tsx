@@ -5,14 +5,19 @@ type TooltipButtonProps = {
     icon: any,
     tooltip: string,
     classOverride?: string,
-    onClick: MouseEventHandler
+    onClick: MouseEventHandler,
+    toolTipColor: string,
 }
 
-const TooltipButton = ({icon, tooltip, classOverride, onClick}: TooltipButtonProps) => {
+const TooltipButton = ({icon, tooltip, classOverride, onClick, toolTipColor}: TooltipButtonProps) => {
     let [hoverig, setHovering] = useState(false)
 
     return (
         <section className={classOverride === undefined ? "hover:scale-150 transition-transform px-4 my-4" : classOverride}
+            style={{
+                "display": "grid",
+                "gridTemplateColumns": "1em auto",
+            }}
             onMouseOver={() => {
                 setHovering(true)
             }}
@@ -26,7 +31,7 @@ const TooltipButton = ({icon, tooltip, classOverride, onClick}: TooltipButtonPro
                 {icon}
             </button>
             {hoverig &&
-                <Tooltip tooltip={tooltip}/>
+                <Tooltip tooltip={tooltip} color={toolTipColor}/>
             }
         </section>
     )

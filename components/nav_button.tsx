@@ -6,10 +6,11 @@ type NavButtonProps = {
     icon: any,
     tooltip: string,
     href: string,
-    classOverride?: string
+    classOverride?: string,
+    toolTipColor: string,
 }
 
-const NavButton = ({icon, tooltip, href, classOverride}: NavButtonProps) => {
+const NavButton = ({icon, tooltip, href, classOverride, toolTipColor}: NavButtonProps) => {
     let [hoverig, setHovering] = useState(false)
 
     return (
@@ -25,7 +26,7 @@ const NavButton = ({icon, tooltip, href, classOverride}: NavButtonProps) => {
                 {icon}
             </Link>
             {hoverig &&
-                <Tooltip tooltip={tooltip} />
+                <Tooltip tooltip={tooltip} color={toolTipColor}/>
             }
         </section>
     )
