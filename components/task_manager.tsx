@@ -73,7 +73,7 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
     if (isEdit)
         return (
             <section className="flex flex-col py-8 text-white text-base">
-                <section className="bg-emerald-900 text-white text-xl py-4 mt-4 flex">
+                <section className="bg-emerald-900 text-white text-xl py-4 mt-4 flex flex-wrap">
                     <TooltipButton icon={<FaSave />} tooltip="Save" onClick={async () => {
                             if (!textArea1) {
                                 alert("Please write something!")
