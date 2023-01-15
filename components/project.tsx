@@ -13,7 +13,7 @@ const Project = ({project}: ProjectProps) => {
     let supabaseClient = useSupabaseClient()
 
     return (
-        <section className="w-full lg:w-96 bg-blue-900 rounded-t-xl rounded-b-xl">
+        <section className={"w-full lg:w-96 rounded-t-xl rounded-b-xl" + ` ${isOpen ? "bg-blue-900" : ""}`}>
             <section className="bg-blue-900 shadow-lg hover:bg-blue-800 rounded-xl">
                 <section className="md:w-96 w-full text-lg text-white  flex rounded-t-xl"
                     onClick={() => setOpen(!isOpen)}
