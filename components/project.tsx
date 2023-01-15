@@ -13,16 +13,26 @@ const Project = ({project}: ProjectProps) => {
     let supabaseClient = useSupabaseClient()
 
     return (
-        <section className="w-full lg:w-96">
-            <section className="md:w-96 w-full text-lg shadow-lg text-white bg-blue-900 flex">
-                <button className={`hover:bg-blue-800 w-full px-4 py-4 shadow-lg text-left ${project.completed ? "line-through" : ""}`} onClick={() => setOpen(!isOpen)}>
-                    {(project.name).toString().toUpperCase()}
-                </button>
-                <TooltipButton icon={<FaBan />} tooltip="Remove" toolTipColor="bg-blue-900" onClick={
-                    async () => {
-                        await supabaseClient.from("UserProjects").delete().eq("id", project.id)
-                    }
-                }/>
+        <section className="w-full lg:w-96 bg-blue-900 rounded-t-xl rounded-b-xl">
+            <section className="bg-blue-900 shadow-lg hover:bg-blue-800 rounded-xl">
+                <section className="md:w-96 w-full text-lg text-white  flex rounded-t-xl"
+                    onClick={() => setOpen(!isOpen)}
+                >
+                    <p className={`w-full px-4 py-4 text-left ${project.completed ? "line-through" : ""}`} >
+                        {(project.name).toString().toUpperCase()}
+                    </p>
+                    <TooltipButton icon={<FaBan />} tooltip="Remove" toolTipColor="bg-blue-900" onClick={
+                        async () => {
+                            await supabaseClient.from("UserProjects").delete().eq("id", project.id)
+                        }
+                    }/>
+                </section>
+                {!isOpen &&
+                    <section className="md:w-96 w-full text-lg shadow-xl text-white flex rounded-b-xl h-16"
+                        onClick={() => setOpen(!isOpen)}
+                    >
+                    </section>
+                }
             </section>
             {isOpen && project.tasks !== null && project.tasks.map((task: any) => {
                 if (task.name.length > 35)
@@ -32,11 +42,11 @@ const Project = ({project}: ProjectProps) => {
                 return (
                     <section key={task.name} 
                         className={
-                            `text-white shadow-lg md:w-96 w-full px-4 flex gap-1 h-16 border-b-2 border-blue-600 
-                            ${task.completed ? "line-through bg-blue-700" : "bg-blue-900"}`
+                            `text-white shadow-lg md:w-96 w-full px-4 flex gap-1 h-16 border-b-2 border-blue-600 rounded-full my-2
+                            ${task.completed ? "line-through bg-blue-500" : "bg-blue-800"}`
                         }>
                         <input type="checkbox" checked={task.completed} 
-                            className="w-8 h-16 transition-transform hover:scale-150"
+                            className="w-8 h-16 transition-transform hover:scale-125"
                             onChange={async () => {
                                 task.completed = !task.completed
                                 
@@ -54,7 +64,7 @@ const Project = ({project}: ProjectProps) => {
                                 await supabaseClient.from("UserProjects").update(project).eq("id", project.id)
                             }
                         }/>
-                        <TooltipButton icon={<FaBan />} tooltip="Remove" toolTipColor="bg-blue-900" classOverride="hover:scale-150 transition-transform px-4 my-4 text-3xl translate-y-0.5"
+                        <TooltipButton icon={<FaBan />} tooltip="Remove" toolTipColor="bg-blue-900" classOverride="hover:scale-125 transition-transform px-4 my-4 text-3xl translate-y-0.5"
                             onClick={
                                 async (event) => {
                                     let newTasks: Array<any> = []
@@ -75,7 +85,7 @@ const Project = ({project}: ProjectProps) => {
                 )
             })}
             {isOpen &&
-                <section className="text-black bg-blue-900 shadow-lg md:w-96 w-full px-4 py-4 text-lg">
+                <section className="text-black bg-blue-900 shadow-lg md:w-96 w-full px-4 py-4 text-lg rounded-b-full">
                     <section className="flex bg-white text-black">
                         <input 
                             className="w-full bg-white outline-none px-2 text-lg"
@@ -85,8 +95,7 @@ const Project = ({project}: ProjectProps) => {
                                 setInputValue(event.target.value)
                             }}
                         />
-                        <button 
-                            className="text-orange-600 text-2xl hover:text-orange-500 py-2 px-2" 
+                        <TooltipButton icon={<FaPlus />} tooltip="Add" toolTipColor="bg-blue-900" classOverride="hover:scale-125 transition-transform px-4 my-1 text-3xl translate-y-1 text-orange-600"
                             onClick={
                                 async () => {
                                     project.tasks = project.tasks !== null ? project.tasks : new Array<any>
@@ -96,9 +105,8 @@ const Project = ({project}: ProjectProps) => {
 
                                     setInputValue("")
                                 }
-                            }>
-                            <FaPlus />
-                        </button>
+                            }
+                        />
                     </section>
                 </section>
             }

@@ -7,6 +7,7 @@ import {useState, useEffect} from 'react'
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import Habit from "../components/habit";
 import BreadCrumbs from "../components/breadcrumbs";
+import TooltipButton from "../components/tooltip_button";
 
 
 const Habits = () => {
@@ -52,8 +53,7 @@ const Habits = () => {
                             setInputValue(event.target.value)
                         }}
                     />
-                    <button 
-                        className="text-orange-600 text-2xl hover:text-orange-500 py-2 px-2" 
+                    <TooltipButton icon={<FaPlus />} tooltip="Add" toolTipColor="bg-blue-900" classOverride="hover:scale-125 transition-transform px-4 my-1 text-3xl translate-y-1 text-orange-600"
                         onClick={
                             async () => {
                                 await supabaseClient.from("UserHabits").insert({
@@ -64,9 +64,8 @@ const Habits = () => {
 
                                 setInputValue("")
                             }
-                        }>
-                        <FaPlus />
-                    </button>
+                        }
+                    />
                 </section>
                 <p className="text-white">
                     {`

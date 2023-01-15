@@ -20,7 +20,6 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
 
     const [textArea1, setTextArea1] = useState("")
 
-    const [deleting, setDeleting] = useState(false)
     const [shouldReset, setShouldReset] = useState(true)
 
     const [selectionStart, setSelectionStart] = useState(0)
@@ -46,21 +45,15 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                 setTextArea1("")
 
             if (textArea1 === "" && newData.length !== 0) {
-                if (!deleting && shouldReset)
+                if (shouldReset)
                     setTextArea1(newData[0].text)
             }
-
-            if (textArea1 !== "" || !isEdit)
-                setShouldReset(true)
-                
-            if (deleting)
-                setShouldReset(false)
         }
 
         if (user) 
             loadData()
 
-    }, [user, data, isEdit, date, supabaseClient, deleting, shouldReset, textArea1])
+    }, [user, data, isEdit, date, supabaseClient, shouldReset, textArea1])
 
     const insertText = (tag1: string, tag2: string) => {
         let textBeforeSelection = textArea1.substring(0, selectionStart)
@@ -81,6 +74,7 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                             }
 
                             setIsEdit(!isEdit)
+
                             const {error} = await supabaseClient.from("UserRoutines").delete().eq("date", date)
 
                             await supabaseClient.from("UserRoutines").insert({
@@ -88,8 +82,10 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                                 text: textArea1,
                                 date: date
                             })
+
+                            setShouldReset(true)
                     }} />
-                    <TooltipButton icon={<FaBan />} tooltip="Cancel" toolTipColor="bg-emerald-900 top-3" onClick={() => setIsEdit(!isEdit)}/>
+                    <TooltipButton icon={<FaBan />} tooltip="Cancel" toolTipColor="bg-emerald-900 top-3" onClick={() => {setIsEdit(!isEdit); setShouldReset(true)}}/>
                     <TooltipButton icon={<FaBold />} tooltip="Bold" toolTipColor="bg-emerald-900 top-3" onClick={() => insertText("<strong>", "</strong>")}/>
                     <TooltipButton icon={<FaItalic /> } tooltip="Italic" toolTipColor="bg-emerald-900 top-3" onClick={() => insertText("<i>", "</i>")}/>                
                     <TooltipButton icon={<FaHighlighter />} tooltip="Highlight" toolTipColor="bg-emerald-900 top-3" onClick={() => insertText("<mark>", "</mark>")}/>
@@ -158,11 +154,7 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                     }}
                     onKeyDown={(event: KeyboardEvent) => {
                         if (event.key === "Backspace")
-                            setDeleting(true)
-                    }}
-                    onKeyUp={(event: KeyboardEvent) => {
-                        if (event.key === "Backspace")
-                            setDeleting(false)
+                            setShouldReset(false)
                     }}
                 />
             </section>
@@ -172,7 +164,7 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
         return (
             <section className="flex flex-col py-8 text-white">
                 <section className="bg-blue-900 text-white text-xl py-4 mt-4 flex">
-                    <TooltipButton icon={<FaEdit />} tooltip="Edit" toolTipColor="bg-blue-900 top-3" onClick={() => setIsEdit(!isEdit)}/>
+                    <TooltipButton icon={<FaEdit />} tooltip="Edit" toolTipColor="bg-blue-900 top-3" onClick={() => {setIsEdit(!isEdit); setShouldReset(true)}}/>
                 </section>
                 <p className="bg-blue-900 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg overflow-y-scroll"
                     style={{"height": "600px"}}

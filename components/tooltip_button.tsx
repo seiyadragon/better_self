@@ -13,7 +13,7 @@ const TooltipButton = ({icon, tooltip, classOverride, onClick, toolTipColor}: To
     let [hoverig, setHovering] = useState(false)
 
     return (
-        <section className={classOverride === undefined ? "hover:scale-150 transition-transform px-4 my-4" : classOverride}
+        <section className={classOverride === undefined ? "hover:scale-125 transition-transform px-4 my-4" : classOverride}
             onMouseOver={() => {
                 setHovering(true)
             }}

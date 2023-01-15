@@ -14,7 +14,7 @@ const NavButton = ({icon, tooltip, href, classOverride, toolTipColor}: NavButton
     let [hoverig, setHovering] = useState(false)
 
     return (
-        <section className={classOverride === undefined ? "hover:scale-150 transition-transform px-2 my-4" : classOverride}>
+        <section className={classOverride === undefined ? "hover:scale-125 transition-transform px-2 my-4" : classOverride}>
             <Link href={href}
                 onMouseOver={() => {
                     setHovering(true)

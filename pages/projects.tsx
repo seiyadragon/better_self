@@ -6,6 +6,7 @@ import {useState, useEffect} from 'react'
 import LoginManager from "../components/login_manager";
 import { FaPlus, FaPlusSquare } from "react-icons/fa";
 import Project from "../components/project";
+import TooltipButton from "../components/tooltip_button";
 
 
 const Projects = () => {
@@ -51,8 +52,7 @@ const Projects = () => {
                             setInputValue(event.target.value)
                         }}
                     />
-                    <button 
-                        className="text-orange-600 text-2xl hover:text-orange-500 py-2 px-2" 
+                    <TooltipButton icon={<FaPlus />} tooltip="Add" toolTipColor="bg-blue-900" classOverride="hover:scale-125 transition-transform px-4 my-1 text-3xl translate-y-1 text-orange-600"
                         onClick={
                             async () => {
                                 await supabaseClient.from("UserProjects").insert({
@@ -62,9 +62,8 @@ const Projects = () => {
 
                                 setInputValue("")
                             }
-                        }>
-                        <FaPlus />
-                    </button>
+                        }
+                    />
                 </section>
                 <p className="text-white py-2">
                     {`You can use this section to define projects, routines, or tasks or really anything that can be broken down into smaller tasks.`}
