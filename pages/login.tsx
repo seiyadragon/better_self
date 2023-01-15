@@ -5,11 +5,19 @@ import Navigation from "../components/navigation";
 import Logo from "../components/logo";
 import HeadManager from "../components/head_manager";
 import BreadCrumbs from "../components/breadcrumbs";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { useEffect } from "react";
 
 const Login = () => {
     let supabaseClient = useSupabaseClient()
+    let user = useUser()
+    let router = useRouter()
+
+    useEffect(() => {
+        if (user)
+            router.push("/account")
+            
+    }, [user])
 
     return (
         <main className="min-h-screen absolute bg-gray-800 w-full">
@@ -25,6 +33,7 @@ const Login = () => {
             <section className="px-4 md:px-12 lg:px-24 text-white">
                 <Logo />
                 <Auth
+                    redirectTo="/login"
                     supabaseClient={supabaseClient}
                     socialLayout="horizontal"
                     appearance={{ 
