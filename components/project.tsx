@@ -25,13 +25,18 @@ const Project = ({project}: ProjectProps) => {
                 }/>
             </section>
             {isOpen && project.tasks !== null && project.tasks.map((task: any) => {
+                if (task.name.length > 35)
+                    task.name = task.name.slice(0, 35).concat("...")
+
+
                 return (
-                    <section key={task.name} className={`text-white bg-blue-900 shadow-lg md:w-96 w-full px-4 py-4 flex gap-4 ${task.completed ? "line-through" : ""}`}>
+                    <section key={task.name} 
+                        className={
+                            `text-white shadow-lg md:w-96 w-full px-4 flex gap-1 h-16 border-b-2 border-blue-600 
+                            ${task.completed ? "line-through bg-blue-700" : "bg-blue-900"}`
+                        }>
                         <input type="checkbox" checked={task.completed} 
-                            style={{
-                                "display": "grid",
-                                "gridTemplateColumns": "3em",
-                            }}
+                            className="w-8 h-16 transition-transform hover:scale-150"
                             onChange={async () => {
                                 task.completed = !task.completed
                                 
@@ -49,7 +54,7 @@ const Project = ({project}: ProjectProps) => {
                                 await supabaseClient.from("UserProjects").update(project).eq("id", project.id)
                             }
                         }/>
-                        <TooltipButton icon={<FaBan />} tooltip="Remove" toolTipColor="bg-blue-900" classOverride="hover:scale-150 transition-transform px-4 my-4 text-5xl"
+                        <TooltipButton icon={<FaBan />} tooltip="Remove" toolTipColor="bg-blue-900" classOverride="hover:scale-150 transition-transform px-4 my-4 text-3xl translate-y-0.5"
                             onClick={
                                 async (event) => {
                                     let newTasks: Array<any> = []
@@ -65,7 +70,7 @@ const Project = ({project}: ProjectProps) => {
                                 }
                             }
                         />
-                        <p className="translate-y-7">{task.name}</p>
+                        <p className="translate-y-5">{task.name}</p>
                     </section>
                 )
             })}

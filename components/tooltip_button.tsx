@@ -14,10 +14,6 @@ const TooltipButton = ({icon, tooltip, classOverride, onClick, toolTipColor}: To
 
     return (
         <section className={classOverride === undefined ? "hover:scale-150 transition-transform px-4 my-4" : classOverride}
-            style={{
-                "display": "grid",
-                "gridTemplateColumns": "1em auto",
-            }}
             onMouseOver={() => {
                 setHovering(true)
             }}

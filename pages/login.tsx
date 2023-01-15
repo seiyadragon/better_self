@@ -26,8 +26,30 @@ const Login = () => {
                 <Logo />
                 <Auth
                     supabaseClient={supabaseClient}
-                    appearance={{ theme: ThemeSupa }}
                     socialLayout="horizontal"
+                    appearance={{ 
+                        theme: ThemeSupa,
+                        variables: {
+                            default: {
+                                colors: {
+                                    brand: '#E5883B',
+                                    brandAccent: '#FC7A01',
+                                    brandButtonText: 'black',
+                                }
+                            }
+                        },
+                        className: {
+                            anchor: 'hover:bg-orange-500 py-2 bg-orange-400 my-2 shadow-lg',
+                            button: 'hover:bg-orange-500 py-4 bg-orange-400 my-2 shadow-lg',
+                            input: 'bg-white',
+                        },
+                        style: {
+                            anchor: {color: 'black', borderRadius: '5px', fontSize: '14px'},
+                            button: {fontSize: '18px'},
+                            input: {backgroundColor: 'white'},
+                            label: {color: '#E5883B', fontSize: '18px'}
+                        }
+                    }}
                 />
             </section>
             <Footer />
