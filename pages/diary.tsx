@@ -74,7 +74,7 @@ const Routines = ({date, dateString}: RoutinesProps) => {
             <Navigation />
             <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}, {name: "Diary", href:"/diary"}]} />
             <section className="mx-4 md:mx-12 lg:mx-24 min-h-screen">
-                <section className="flex flex-row justify-center gap-12 mt-8 shadow-lg py-8 bg-blue-900">
+                <section className="flex flex-row justify-center gap-12 mt-8 shadow-lg py-8 bg-blue-900 rounded-xl border-b-4 border-blue-600">
                     <Link 
                         className="text-orange-400 text-2xl hover:scale-150 transition-transform"
                         href={"/diary?date=" + prevDate.toDateString().replaceAll(" ", "_")}

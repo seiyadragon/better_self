@@ -66,7 +66,7 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
     if (isEdit)
         return (
             <section className="flex flex-col py-8 text-white text-base">
-                <section className="bg-emerald-900 text-white text-xl py-4 mt-4 flex flex-wrap">
+                <section className="bg-emerald-900 text-white text-xl py-4 mt-4 flex flex-wrap rounded-t-xl">
                     <TooltipButton icon={<FaSave />} tooltip="Save" toolTipColor="bg-emerald-900 top-3" onClick={async () => {
                             if (!textArea1) {
                                 alert("Please write something!")
@@ -136,7 +136,7 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                     />
                 </section>
                 <textarea
-                    className="bg-emerald-900 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg h-96 placeholder-white"
+                    className="bg-emerald-900 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg h-96 placeholder-white rounded-b-xl border-b-4 border-emerald-600"
                     style={{"height": "600px"}}
                     placeholder={TEXT_AREA_PLACEHOLDER1}
                     value={textArea1}
@@ -163,10 +163,10 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
     else {
         return (
             <section className="flex flex-col py-8 text-white">
-                <section className="bg-blue-900 text-white text-xl py-4 mt-4 flex">
+                <section className="bg-blue-900 text-white text-xl py-4 mt-4 flex rounded-t-xl">
                     <TooltipButton icon={<FaEdit />} tooltip="Edit" toolTipColor="bg-blue-900 top-3" onClick={() => {setIsEdit(!isEdit); setShouldReset(true)}}/>
                 </section>
-                <p className="bg-blue-900 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg overflow-y-scroll"
+                <p className="bg-blue-900 outline-none text-white resize-none mb-4 px-4 py-4 shadow-lg overflow-y-hidden rounded-b-xl border-b-4 border-blue-600"
                     style={{"height": "600px"}}
                     dangerouslySetInnerHTML={{__html: `${data.length > 0 ? data[0].text : TEXT_AREA_PLACEHOLDER1}
                     <style>

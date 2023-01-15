@@ -14,7 +14,7 @@ const Project = ({project}: ProjectProps) => {
 
     return (
         <section className={"w-full lg:w-96 rounded-t-xl" + ` ${isOpen ? "" : ""}`}>
-            <section className={"bg-blue-900 shadow-lg hover:bg-blue-800 rounded-t-xl" + ` ${!isOpen ? "rounded-b-xl" : ""}`}>
+            <section className={"shadow-lg rounded-t-xl" + ` ${!isOpen ? "rounded-b-xl" : ""} ${project.completed ? "bg-blue-400 hover:bg-blue-300" : "bg-blue-900 hover:bg-blue-800"}`}>
                 <section className="md:w-96 w-full text-lg text-white  flex rounded-t-xl h-16"
                     onClick={() => setOpen(!isOpen)}
                 >
@@ -28,14 +28,14 @@ const Project = ({project}: ProjectProps) => {
                     }/>
                 </section>
                 {!isOpen &&
-                    <section className="md:w-96 w-full text-lg shadow-xl text-white flex rounded-b-xl h-16"
+                    <section className="md:w-96 w-full text-lg shadow-xl text-white flex rounded-b-xl h-16 border-b-4 border-blue-600"
                         onClick={() => setOpen(!isOpen)}
                     >
                     </section>
                 }
             </section>
             { isOpen && 
-                <section className="bg-blue-900 py-2">
+                <section className={"py-2" + ` ${project.completed ? "bg-blue-400" : "bg-blue-900"}`}>
                     {project.tasks !== null && project.tasks.map((task: any) => {
                         if (task.name.length > 35)
                             task.name = task.name.slice(0, 35).concat("...")
@@ -44,7 +44,7 @@ const Project = ({project}: ProjectProps) => {
                         return (
                             <section key={task.name} 
                                 className={
-                                    `text-white shadow-lg md:w-96 w-full px-4 flex gap-1 h-16 border-b-2 border-blue-600 rounded-2xl my-2
+                                    `text-white shadow-lg md:w-96 w-full px-4 flex gap-1 h-16 border-b-4 border-blue-600 rounded-2xl my-2
                                     ${task.completed ? "line-through bg-blue-500" : "bg-blue-800"}`
                                 }>
                                 <input type="checkbox" checked={task.completed} 
@@ -89,7 +89,7 @@ const Project = ({project}: ProjectProps) => {
                 </section>
             }
             {isOpen &&
-                <section className="text-black bg-blue-900 md:w-96 w-full py-4 text-lg">
+                <section className={"text-black md:w-96 w-full py-4 text-lg" + ` ${project.completed ? "bg-blue-400" : "bg-blue-900"}`}>
                     <section className="flex bg-white text-black">
                         <input 
                             className="w-full bg-white outline-none px-4 text-lg rounded-xl"
@@ -115,7 +115,7 @@ const Project = ({project}: ProjectProps) => {
                 </section>
             }
             {isOpen &&
-                <section className="md:w-96 w-full text-lg shadow-xl text-white flex rounded-b-xl h-16 bg-blue-900">
+                <section className={"md:w-96 w-full text-lg shadow-xl text-white flex rounded-b-xl h-16 border-b-4 border-blue-600" + ` ${project.completed ? "bg-blue-400" : "bg-blue-900"}`}>
                 </section>
             }
         </section>

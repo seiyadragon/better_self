@@ -5,6 +5,9 @@ import LoginManager from "../components/login_manager";
 import HeadManager from "../components/head_manager";
 import {useEffect, useState} from 'react'
 import BreadCrumbs from "../components/breadcrumbs";
+import NavButton from "../components/nav_button";
+import { FaBookOpen, FaClock, FaHome, FaSignOutAlt, FaTasks } from "react-icons/fa";
+import TooltipButton from "../components/tooltip_button";
 
 const Account = () => {
     let user = useUser()
@@ -13,6 +16,8 @@ const Account = () => {
     let [dataLength, setDataLength] = useState(0)
     let [habitsLength, setHabitsLength] = useState(0)
     let [projectsLength, setProjectsLength] = useState(0)
+
+    let date = new Date()
 
     useEffect(() => {
         async function loadData() {
@@ -45,17 +50,25 @@ const Account = () => {
             <Navigation />
             <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}, {name: "Account", href:"/account"}]} />
             <section className="mx-4 md:mx-12 lg:mx-24 text-center text-2xl text-white min-h-screen">
-               <p className="py-4 text-4xl">Welcome!</p>
-               <p className="py-2 text-left">Email: {user?.email}</p>
-               <p className="py-2 text-left">Diary: {dataLength} days</p>
-               <p className="py-2 text-left">Habits: {habitsLength} habits</p>
-               <p className="py-2 text-left">Projects: {projectsLength} projects</p>
-               <button 
-                    className="py-8 px-16 my-32 lg:w-96 w-64 bg-red-600 hover:bg-red-500 self-center shadow-lg text-2xl" 
-                    onClick={async (MouseEvent) => supabaseClient.auth.signOut()}
-                >
-                    Sign Out!
-                </button>
+                <p className="py-8 text-4xl bg-blue-900 px-4 w-full rounded-xl border-b-4 border-blue-600 my-16">Welcome!</p>
+                <section className="flex flex-wrap gap-14">
+                    <section className="bg-blue-900 py-4 px-4 text-base md:w-96 w-full rounded-xl border-b-4 border-blue-600">
+                        <p className="py-2 text-2xl">Stats</p>
+                        <p className="py-2 px-2 text-left bg-blue-800 border-b-4 border-blue-600 rounded-xl my-4">Diary: {dataLength} days</p>
+                        <p className="py-2 px-2 text-left bg-blue-800 border-b-4 border-blue-600 rounded-xl my-4">Habits: {habitsLength} habits</p>
+                        <p className="py-2 px-2 text-left bg-blue-800 border-b-4 border-blue-600 rounded-xl my-4">Projects: {projectsLength} projects</p>
+                    </section>
+                    <section className="bg-blue-900 py-4 px-4 text-base md:w-96 w-full rounded-xl border-b-4 border-blue-600">
+                        <p className="py-2 text-2xl">Control Panel</p>
+                        <section className="flex flex-wrap w-fit h-fit text-6xl md:gap-x-4 gap-x-2">
+                            <NavButton icon={<FaHome />} tooltip='Home' toolTipColor="bg-blue-900" href='/' />
+                            <NavButton icon={<FaBookOpen />} tooltip='Diary' toolTipColor="bg-blue-900" href={"/diary?date=" + date.toDateString().replaceAll(" ", "_")} />
+                            <NavButton icon={<FaClock />} tooltip='Habits' toolTipColor="bg-blue-900" href='/habits'/>
+                            <NavButton icon={<FaTasks />} tooltip='Projects' toolTipColor="bg-blue-900" href='/projects'/>
+                            <TooltipButton icon={<FaSignOutAlt />} tooltip="SignOut" toolTipColor="bg-blue-900" onClick={async (MouseEvent) => supabaseClient.auth.signOut()} />
+                        </section>
+                    </section>
+                </section>
             </section>
             <Footer />
         </main>
