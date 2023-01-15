@@ -60,7 +60,7 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
         if (user) 
             loadData()
 
-    }, [user, data, isEdit, date, supabaseClient])
+    }, [user, data, isEdit, date, supabaseClient, deleting, shouldReset, textArea1])
 
     const insertText = (tag1: string, tag2: string) => {
         let textBeforeSelection = textArea1.substring(0, selectionStart)

@@ -5,7 +5,7 @@ import Navigation from "../components/navigation";
 import Logo from "../components/logo";
 import HeadManager from "../components/head_manager";
 import BreadCrumbs from "../components/breadcrumbs";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const Login = () => {
@@ -16,8 +16,8 @@ const Login = () => {
     useEffect(() => {
         if (user)
             router.push("/account")
-            
-    }, [user])
+
+    }, [user, router])
 
     return (
         <main className="min-h-screen absolute bg-gray-800 w-full">
