@@ -74,31 +74,33 @@ const Routines = ({date, dateString}: RoutinesProps) => {
             <Navigation />
             <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}, {name: "Diary", href:"/diary"}]} />
             <section className="mx-4 md:mx-12 lg:mx-24 min-h-screen">
-                <section className="flex flex-row justify-center gap-12 mt-8 shadow-lg py-8 bg-blue-900 rounded-xl border-b-4 border-blue-600">
-                    <Link 
-                        className="text-orange-400 text-2xl hover:scale-150 transition-transform"
-                        href={"/diary?date=" + prevDate.toDateString().replaceAll(" ", "_")}
-                        onClick={() => setIsEdit(false)}
-                    >
-                        {"↤"}
-                    </Link>
-                    <p className="text-orange-400 text-2xl">{dateDate.toDateString()}</p>
-                    <Link 
-                        className="text-orange-400 text-2xl hover:scale-150 transition-transform"
-                        href={"/diary?date=" + nextDate.toDateString().replaceAll(" ", "_")}
-                        onClick={() => setIsEdit(false)}
-                    >
-                        {"↦"}
-                    </Link>
+                <section className="mt-8 shadow-lg py-8 bg-blue-900 rounded-xl border-b-4 border-blue-600">
+                    <section className="flex flex-row justify-center gap-12">
+                        <Link 
+                            className="text-orange-400 text-2xl hover:scale-150 transition-transform"
+                            href={"/diary?date=" + prevDate.toDateString().replaceAll(" ", "_")}
+                            onClick={() => setIsEdit(false)}
+                        >
+                            {"↤"}
+                        </Link>
+                        <p className="text-orange-400 text-2xl">{dateDate.toDateString()}</p>
+                        <Link 
+                            className="text-orange-400 text-2xl hover:scale-150 transition-transform"
+                            href={"/diary?date=" + nextDate.toDateString().replaceAll(" ", "_")}
+                            onClick={() => setIsEdit(false)}
+                        >
+                            {"↦"}
+                        </Link>
+                    </section>
+                    <p className="text-white py-4 px-4">
+                        {`
+                            Track every single aspect of your life. In doing this you bring control and organization.
+                            You gain the ability to look at your life from an objective angle, it allows you to detach emotion 
+                            and yourself from the subject of your own life. Write everything down and read it afterwards, it will
+                            help you remember. You can make full use of HTML and CSS to style your day!
+                        `}
+                    </p>
                 </section>
-                <p className="text-white py-4">
-                    {`
-                        Track every single aspect of your life. In doing this you bring control and organization.
-                        You gain the ability to look at your life from an objective angle, it allows you to detach emotion 
-                        and yourself from the subject of your own life. Write everything down and read it afterwards, it will
-                        help you remember. You can make full use of HTML and CSS to style your day!
-                    `}
-                </p>
                 <TaskManager date={dateString} isEdit={isEdit} setIsEdit={setIsEdit}/>
             </section>
             <Footer />

@@ -43,32 +43,34 @@ const Projects = () => {
             <Navigation />
             <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}, {name: "Projects", href:"/projects"}]} />
             <section className="mx-4 md:mx-12 lg:mx-24 min-h-screen">
-                <section className="flex bg-gray-700 text-white my-8">
-                    <input 
-                        className="w-full bg-gray-700 outline-none px-2 text-lg"
-                        placeholder="Type the name of your project here!"
-                        value={inputValue}
-                        onChange={(event) => {
-                            setInputValue(event.target.value)
-                        }}
-                    />
-                    <TooltipButton icon={<FaPlus />} tooltip="Add" toolTipColor="bg-blue-900" classOverride="hover:scale-125 transition-transform px-4 my-1 text-3xl translate-y-1 text-orange-600"
-                        onClick={
-                            async () => {
-                                await supabaseClient.from("UserProjects").insert({
-                                    userid: user?.id,
-                                    name: inputValue,
-                                })
+                <section className="mt-8 shadow-lg py-2 bg-blue-900 rounded-xl border-b-4 border-blue-600 pb-9">
+                    <section className="flex bg-gray-700 text-white my-8">
+                        <input 
+                            className="w-full bg-gray-700 outline-none px-4 text-lg"
+                            placeholder="Type the name of your project here!"
+                            value={inputValue}
+                            onChange={(event) => {
+                                setInputValue(event.target.value)
+                            }}
+                        />
+                        <TooltipButton icon={<FaPlus />} tooltip="Add" toolTipColor="bg-blue-900" classOverride="hover:scale-125 transition-transform px-4 my-1 text-3xl translate-y-1 text-orange-600"
+                            onClick={
+                                async () => {
+                                    await supabaseClient.from("UserProjects").insert({
+                                        userid: user?.id,
+                                        name: inputValue,
+                                    })
 
-                                setInputValue("")
+                                    setInputValue("")
+                                }
                             }
-                        }
-                    />
+                        />
+                    </section>
+                    <p className="text-white px-4">
+                        {`You can use this section to define projects, routines, or tasks or really anything that can be broken down into smaller tasks.`}
+                    </p>
                 </section>
-                <p className="text-white py-2">
-                    {`You can use this section to define projects, routines, or tasks or really anything that can be broken down into smaller tasks.`}
-                </p>
-                <section className="flex flex-wrap gap-8">
+                <section className="flex flex-wrap gap-8 mt-10">
                     {data.map((project) => {
                         return <Project key={project} project={project} />
                     })}

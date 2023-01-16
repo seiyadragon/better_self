@@ -44,36 +44,38 @@ const Habits = () => {
             <Navigation />
             <BreadCrumbs breadCrumbs={[{name: "Home", href:"/"}, {name: "Habits", href:"/habits"}]} />
             <section className="mx-4 md:mx-12 lg:mx-24 min-h-screen">
-                <section className="flex bg-gray-700 text-white my-8">
-                    <input 
-                        className="w-full bg-gray-700 outline-none px-2 text-lg"
-                        placeholder="Type the name of your habit here!"
-                        value={inputValue}
-                        onChange={(event) => {
-                            setInputValue(event.target.value)
-                        }}
-                    />
-                    <TooltipButton icon={<FaPlus />} tooltip="Add" toolTipColor="bg-blue-900" classOverride="hover:scale-125 transition-transform px-4 my-1 text-3xl translate-y-1 text-orange-600"
-                        onClick={
-                            async () => {
-                                await supabaseClient.from("UserHabits").insert({
-                                    userid: user?.id,
-                                    name: inputValue,
-                                    days: 0
-                                })
+                <section className="mt-8 shadow-lg py-2 bg-blue-900 rounded-xl border-b-4 border-blue-600 pb-9">
+                    <section className="flex bg-gray-700 text-white my-8">
+                        <input 
+                            className="w-full bg-gray-700 outline-none px-4 text-lg"
+                            placeholder="Type the name of your habit here!"
+                            value={inputValue}
+                            onChange={(event) => {
+                                setInputValue(event.target.value)
+                            }}
+                        />
+                        <TooltipButton icon={<FaPlus />} tooltip="Add" toolTipColor="bg-blue-900" classOverride="hover:scale-125 transition-transform px-4 my-1 text-3xl translate-y-1 text-orange-600"
+                            onClick={
+                                async () => {
+                                    await supabaseClient.from("UserHabits").insert({
+                                        userid: user?.id,
+                                        name: inputValue,
+                                        days: 0
+                                    })
 
-                                setInputValue("")
+                                    setInputValue("")
+                                }
                             }
-                        }
-                    />
+                        />
+                    </section>
+                    <p className="text-white px-4">
+                        {`
+                            Keep track of your habits here. Every day you do the habit, you count up one, but
+                            if you fail, even one day, you have to reset it to 0.
+                        `}
+                    </p>
                 </section>
-                <p className="text-white">
-                    {`
-                        Keep track of your habits here. Every day you do the habit, you count up one, but
-                        if you fail, even one day, you have to reset it to 0.
-                    `}
-                </p>
-                <section className="flex flex-wrap gap-x-7">
+                <section className="flex flex-wrap gap-x-7 mt-6">
                     {data.map((habit) => {
                         return <Habit key={habit.id} name={habit.name} days={habit.days} id={habit.id}/>
                     })}
