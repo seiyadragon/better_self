@@ -175,6 +175,10 @@ const TaskManager = ({date, isEdit, setIsEdit}: TaskManagerProps) => {
                             margin-left: 16px;
                             margin-right: 16px;
                         }
+                        mark {
+                            padding-left: 4px;
+                            padding-right: 4px;
+                        }
                     </style>`}}
                 />
             </section>
