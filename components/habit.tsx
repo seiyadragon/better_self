@@ -30,15 +30,15 @@ const Habit = ({name, days, id}: HabitProps) => {
             <p className="bg-blue-800 w-24 h-36 py-4 px-4 ml-4 text-center overflow-x-hidden shadow-lg rounded-full border-b-4 border-blue-600">{days} days</p>
             <section className="ml-4 w-24 h-36 shadow-lg bg-blue-800 py-6 rounded-full border-r-4 border-b-4 border-blue-600">
                 <TooltipButton icon={<FaArrowUp />} tooltip="Increase" toolTipColor="bg-blue-900"
-                    classOverride="hover:scale-150 transition-transform px-4 mx-6 h-1/3"
+                    classOverride="hover:scale-125 transition-transform px-4 mx-6 h-1/3"
                     onClick={async () => await supabaseClient.from("UserHabits").update({days: days + 1}).eq("id", id)}
                 />
                 <TooltipButton icon={<FaRedoAlt />} tooltip="Reset" toolTipColor="bg-blue-900"
-                    classOverride="hover:scale-150 transition-transform px-4 mx-6 h-1/3"
+                    classOverride="hover:scale-125 transition-transform px-4 mx-6 h-1/3"
                     onClick={async () => await supabaseClient.from("UserHabits").update({days: 0}).eq("id", id)}
                 />
                 <TooltipButton icon={<FaBan/>} tooltip="Delete" toolTipColor="bg-blue-900"
-                    classOverride="hover:scale-150 transition-transform px-4 mx-6 h-1/3"
+                    classOverride="hover:scale-125 transition-transform px-4 mx-6 h-1/3"
                     onClick={async () => await supabaseClient.from("UserHabits").delete().eq("id", id)}
                 />
             </section>
