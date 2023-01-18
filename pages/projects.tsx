@@ -72,7 +72,7 @@ const Projects = () => {
                 </section>
                 <section className="flex flex-wrap gap-8 mt-10">
                     {data.map((project) => {
-                        return <Project key={project} project={project} />
+                        return <Project key={project.name} project={project} />
                     })}
                 </section>
             </section>
